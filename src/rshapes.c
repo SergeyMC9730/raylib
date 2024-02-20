@@ -193,7 +193,7 @@ void DrawLineV(Vector2 startPos, Vector2 endPos, Color color)
     rlEnd();
 }
 
-// Draw lines sequuence (using gl lines)
+// Draw lines sequence (using gl lines)
 void DrawLineStrip(Vector2 *points, int pointCount, Color color)
 {
     if (pointCount >= 2)
