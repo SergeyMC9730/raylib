@@ -3360,7 +3360,7 @@ Function 381: IsFontReady() (1 input parameters)
   Return type: bool
   Description: Check if a font is ready
   Param[1]: font (type: RLFont)
-Function 379: LoadFontData() (6 input parameters)
+Function 382: LoadFontData() (6 input parameters)
   Name: LoadFontData
   Return type: GlyphInfo *
   Description: Load font data for further use
@@ -3391,7 +3391,7 @@ Function 385: UnloadFont() (1 input parameters)
   Return type: void
   Description: Unload font from GPU memory (VRAM)
   Param[1]: font (type: RLFont)
-Function 383: ExportFontAsCode() (2 input parameters)
+Function 386: ExportFontAsCode() (2 input parameters)
   Name: ExportFontAsCode
   Return type: bool
   Description: Export font as code file, returns true on success
