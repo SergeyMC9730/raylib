@@ -1842,7 +1842,7 @@ RMAPI Matrix MatrixFrustum(double left, double right, double bottom, double top,
 
     float rl = (float)(right - left);
     float tb = (float)(top - bottom);
-    float fn = (float)(far - rnear);
+    float fn = (float)(rfar - rnear);
 
     result.m0 = ((float)rnear*2.0f)/rl;
     result.m1 = 0.0f;
@@ -1856,7 +1856,7 @@ RMAPI Matrix MatrixFrustum(double left, double right, double bottom, double top,
 
     result.m8 = ((float)right + (float)left)/rl;
     result.m9 = ((float)top + (float)bottom)/tb;
-    result.m10 = -((float)far + (float)rnear)/fn;
+    result.m10 = -((float)rfar + (float)rnear)/fn;
     result.m11 = -1.0f;
 
     result.m12 = 0.0f;

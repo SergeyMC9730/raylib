@@ -81,8 +81,6 @@
 
 #include <stdarg.h>     // Required for: va_list - Only used by TraceLogCallback
 
-#include <windows.h>    // LOL
-
 #define RAYLIB_VERSION_MAJOR 5
 #define RAYLIB_VERSION_MINOR 1
 #define RAYLIB_VERSION_PATCH 0
