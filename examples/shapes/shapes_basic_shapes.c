@@ -44,14 +44,14 @@ int main(void)
 
             ClearBackground(RAYWHITE);
 
-            DrawText("some basic shapes available on raylib", 20, 20, 20, DARKGRAY);
+            RlDrawText("some basic shapes available on raylib", 20, 20, 20, DARKGRAY);
 
             // Circle shapes and lines
             DrawCircle(screenWidth/5, 120, 35, DARKBLUE);
             DrawCircleGradient(screenWidth/5, 220, 60, GREEN, SKYBLUE);
             DrawCircleLines(screenWidth/5, 340, 80, DARKBLUE);
 
-            // Rectangle shapes and lines
+            // RLRectangle shapes and lines
             DrawRectangle(screenWidth/4*2 - 60, 100, 120, 60, RED);
             DrawRectangleGradientH(screenWidth/4*2 - 90, 170, 180, 130, MAROON, GOLD);
             DrawRectangleLines(screenWidth/4*2 - 40, 320, 80, 60, ORANGE);  // NOTE: Uses QUADS internally, not lines
@@ -79,7 +79,7 @@ int main(void)
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
-    CloseWindow();        // Close window and OpenGL context
+    RlCloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
     return 0;

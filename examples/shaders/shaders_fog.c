@@ -134,7 +134,7 @@ int main(void)
 
             EndMode3D();
 
-            DrawText(TextFormat("Use KEY_UP/KEY_DOWN to change fog density [%.2f]", fogDensity), 10, 10, 20, RAYWHITE);
+            RlDrawText(TextFormat("Use KEY_UP/KEY_DOWN to change fog density [%.2f]", fogDensity), 10, 10, 20, RAYWHITE);
 
         EndDrawing();
         //----------------------------------------------------------------------------------
@@ -148,7 +148,7 @@ int main(void)
     UnloadTexture(texture);     // Unload the texture
     UnloadShader(shader);       // Unload shader
 
-    CloseWindow();              // Close window and OpenGL context
+    RlCloseWindow();              // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
     return 0;

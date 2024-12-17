@@ -113,7 +113,7 @@ int main(void)
             // Raymarch Scene
             rlEnableDepthTest(); //Manually enable Depth Test to handle multiple rendering methods.
             BeginShaderMode(shdrRaymarch);
-                DrawRectangleRec((Rectangle){0,0, (float)screenWidth, (float)screenHeight},WHITE);
+                DrawRectangleRec((RLRectangle){0,0, (float)screenWidth, (float)screenHeight},WHITE);
             EndShaderMode();
             
             // Rasterize Scene
@@ -132,7 +132,7 @@ int main(void)
         BeginDrawing();
             ClearBackground(RAYWHITE);
         
-            DrawTextureRec(target.texture, (Rectangle) { 0, 0, (float)screenWidth, (float)-screenHeight }, (Vector2) { 0, 0 }, WHITE);
+            DrawTextureRec(target.texture, (RLRectangle) { 0, 0, (float)screenWidth, (float)-screenHeight }, (Vector2) { 0, 0 }, WHITE);
             DrawFPS(10, 10);
         EndDrawing();
         //----------------------------------------------------------------------------------
@@ -144,7 +144,7 @@ int main(void)
     UnloadShader(shdrRaymarch);
     UnloadShader(shdrRaster);
 
-    CloseWindow();        // Close window and OpenGL context
+    RlCloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
     return 0;

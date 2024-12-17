@@ -91,7 +91,7 @@ int main ()
                 
             EndMode2D();
 
-            DrawText("Mouse right button drag to move, mouse wheel to zoom", 10, 10, 20, WHITE);
+            RlDrawText("Mouse right button drag to move, mouse wheel to zoom", 10, 10, 20, WHITE);
         
         EndDrawing();
         //----------------------------------------------------------------------------------
@@ -99,7 +99,7 @@ int main ()
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
-    CloseWindow();        // Close window and OpenGL context
+    RlCloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
     return 0;
 }

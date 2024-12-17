@@ -55,9 +55,9 @@ int main(void)
 
             ClearBackground(RAYWHITE);
 
-            DrawText("Every 2 seconds a new random value is generated:", 130, 100, 20, MAROON);
+            RlDrawText("Every 2 seconds a new random value is generated:", 130, 100, 20, MAROON);
 
-            DrawText(TextFormat("%i", randValue), 360, 180, 80, LIGHTGRAY);
+            RlDrawText(TextFormat("%i", randValue), 360, 180, 80, LIGHTGRAY);
 
         EndDrawing();
         //----------------------------------------------------------------------------------
@@ -65,7 +65,7 @@ int main(void)
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
-    CloseWindow();        // Close window and OpenGL context
+    RlCloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
     return 0;

@@ -63,7 +63,7 @@ int main(void)
 
             ClearBackground(RAYWHITE);
 
-            DrawText("MOVE START-END POINTS WITH MOUSE", 15, 20, 20, GRAY);
+            RlDrawText("MOVE START-END POINTS WITH MOUSE", 15, 20, 20, GRAY);
 
             // Draw line Cubic Bezier, in-out interpolation (easing), no control points
             DrawLineBezier(startPoint, endPoint, 4.0f, BLUE);
@@ -78,7 +78,7 @@ int main(void)
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
-    CloseWindow();        // Close window and OpenGL context
+    RlCloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
     return 0;

@@ -38,7 +38,7 @@ int main(void)
 
     InitWindow(screenWidth, screenHeight, "raylib [shapes] example - easings rectangle array");
 
-    Rectangle recs[MAX_RECS_X*MAX_RECS_Y] = { 0 };
+    RLRectangle recs[MAX_RECS_X*MAX_RECS_Y] = { 0 };
 
     for (int y = 0; y < MAX_RECS_Y; y++)
     {
@@ -108,7 +108,7 @@ int main(void)
                     DrawRectanglePro(recs[i], (Vector2){ recs[i].width/2, recs[i].height/2 }, rotation, RED);
                 }
             }
-            else if (state == 1) DrawText("PRESS [SPACE] TO PLAY AGAIN!", 240, 200, 20, GRAY);
+            else if (state == 1) RlDrawText("PRESS [SPACE] TO PLAY AGAIN!", 240, 200, 20, GRAY);
 
         EndDrawing();
         //----------------------------------------------------------------------------------
@@ -116,7 +116,7 @@ int main(void)
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
-    CloseWindow();        // Close window and OpenGL context
+    RlCloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
     return 0;

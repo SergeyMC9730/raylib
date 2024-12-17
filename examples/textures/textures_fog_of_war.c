@@ -129,13 +129,13 @@ int main(void)
 
 
             // Draw fog of war (scaled to full map, bilinear filtering)
-            DrawTexturePro(fogOfWar.texture, (Rectangle){ 0, 0, (float)fogOfWar.texture.width, (float)-fogOfWar.texture.height },
-                           (Rectangle){ 0, 0, (float)map.tilesX*MAP_TILE_SIZE, (float)map.tilesY*MAP_TILE_SIZE },
+            DrawTexturePro(fogOfWar.texture, (RLRectangle){ 0, 0, (float)fogOfWar.texture.width, (float)-fogOfWar.texture.height },
+                           (RLRectangle){ 0, 0, (float)map.tilesX*MAP_TILE_SIZE, (float)map.tilesY*MAP_TILE_SIZE },
                            (Vector2){ 0, 0 }, 0.0f, WHITE);
 
             // Draw player current tile
-            DrawText(TextFormat("Current tile: [%i,%i]", playerTileX, playerTileY), 10, 10, 20, RAYWHITE);
-            DrawText("ARROW KEYS to move", 10, screenHeight-25, 20, RAYWHITE);
+            RlDrawText(TextFormat("Current tile: [%i,%i]", playerTileX, playerTileY), 10, 10, 20, RAYWHITE);
+            RlDrawText("ARROW KEYS to move", 10, screenHeight-25, 20, RAYWHITE);
 
         EndDrawing();
         //----------------------------------------------------------------------------------
@@ -148,7 +148,7 @@ int main(void)
 
     UnloadRenderTexture(fogOfWar);  // Unload render texture
 
-    CloseWindow();          // Close window and OpenGL context
+    RlCloseWindow();          // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
     return 0;

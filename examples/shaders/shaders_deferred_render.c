@@ -273,7 +273,7 @@ int main(void)
                         rlDisableShader();
                     EndMode3D();
                     
-                    DrawText("FINAL RESULT", 10, screenHeight - 30, 20, DARKGREEN);
+                    RlDrawText("FINAL RESULT", 10, screenHeight - 30, 20, DARKGREEN);
                 } break;
                 case DEFERRED_POSITION:
                 {
@@ -281,9 +281,9 @@ int main(void)
                         .id = gBuffer.positionTexture,
                         .width = screenWidth,
                         .height = screenHeight,
-                    }, (Rectangle) { 0, 0, screenWidth, -screenHeight }, Vector2Zero(), RAYWHITE);
+                    }, (RLRectangle) { 0, 0, screenWidth, -screenHeight }, Vector2Zero(), RAYWHITE);
                     
-                    DrawText("POSITION TEXTURE", 10, screenHeight - 30, 20, DARKGREEN);
+                    RlDrawText("POSITION TEXTURE", 10, screenHeight - 30, 20, DARKGREEN);
                 } break;
                 case DEFERRED_NORMAL:
                 {
@@ -291,9 +291,9 @@ int main(void)
                         .id = gBuffer.normalTexture,
                         .width = screenWidth,
                         .height = screenHeight,
-                    }, (Rectangle) { 0, 0, screenWidth, -screenHeight }, Vector2Zero(), RAYWHITE);
+                    }, (RLRectangle) { 0, 0, screenWidth, -screenHeight }, Vector2Zero(), RAYWHITE);
                     
-                    DrawText("NORMAL TEXTURE", 10, screenHeight - 30, 20, DARKGREEN);
+                    RlDrawText("NORMAL TEXTURE", 10, screenHeight - 30, 20, DARKGREEN);
                 } break;
                 case DEFERRED_ALBEDO:
                 {
@@ -301,15 +301,15 @@ int main(void)
                         .id = gBuffer.albedoSpecTexture,
                         .width = screenWidth,
                         .height = screenHeight,
-                    }, (Rectangle) { 0, 0, screenWidth, -screenHeight }, Vector2Zero(), RAYWHITE);
+                    }, (RLRectangle) { 0, 0, screenWidth, -screenHeight }, Vector2Zero(), RAYWHITE);
                     
-                    DrawText("ALBEDO TEXTURE", 10, screenHeight - 30, 20, DARKGREEN);
+                    RlDrawText("ALBEDO TEXTURE", 10, screenHeight - 30, 20, DARKGREEN);
                 } break;
                 default: break;
             }
 
-            DrawText("Toggle lights keys: [Y][R][G][B]", 10, 40, 20, DARKGRAY);
-            DrawText("Switch G-buffer textures: [1][2][3][4]", 10, 70, 20, DARKGRAY);
+            RlDrawText("Toggle lights keys: [Y][R][G][B]", 10, 40, 20, DARKGRAY);
+            RlDrawText("Switch G-buffer textures: [1][2][3][4]", 10, 70, 20, DARKGRAY);
 
             DrawFPS(10, 10);
             
@@ -332,7 +332,7 @@ int main(void)
     rlUnloadTexture(gBuffer.albedoSpecTexture);
     rlUnloadTexture(gBuffer.depthRenderbuffer);
 
-    CloseWindow();          // Close window and OpenGL context
+    RlCloseWindow();          // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
     return 0;

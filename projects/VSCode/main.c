@@ -71,7 +71,7 @@ int main()
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
-    CloseWindow();                  // Close window and OpenGL context
+    RlCloseWindow();                  // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
     return 0;
@@ -99,7 +99,7 @@ static void UpdateDrawFrame(void)
 
         EndMode3D();
 
-        DrawText("This is a raylib example", 10, 40, 20, DARKGRAY);
+        RlDrawText("This is a raylib example", 10, 40, 20, DARKGRAY);
 
         DrawFPS(10, 10);
 

@@ -160,7 +160,7 @@ int main(void)
             ClearBackground(BLACK);     // Clear the render texture
 
             // Draw a rectangle in shader mode to be used as shader canvas
-            // NOTE: Rectangle uses font white character texture coordinates,
+            // NOTE: RLRectangle uses font white character texture coordinates,
             // so shader can not be applied here directly because input vertexTexCoord
             // do not represent full screen coordinates (space where want to apply shader)
             DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), BLACK);
@@ -179,12 +179,12 @@ int main(void)
 
             if (showControls)
             {
-                DrawText("Press Mouse buttons right/left to zoom in/out and move", 10, 15, 10, RAYWHITE);
-                DrawText("Press KEY_F1 to toggle these controls", 10, 30, 10, RAYWHITE);
-                DrawText("Press KEYS [1 - 6] to change point of interest", 10, 45, 10, RAYWHITE);
-                DrawText("Press KEY_LEFT | KEY_RIGHT to change speed", 10, 60, 10, RAYWHITE);
-                DrawText("Press KEY_SPACE to stop movement animation", 10, 75, 10, RAYWHITE);
-                DrawText("Press KEY_R to recenter the camera", 10, 90, 10, RAYWHITE);
+                RlDrawText("Press Mouse buttons right/left to zoom in/out and move", 10, 15, 10, RAYWHITE);
+                RlDrawText("Press KEY_F1 to toggle these controls", 10, 30, 10, RAYWHITE);
+                RlDrawText("Press KEYS [1 - 6] to change point of interest", 10, 45, 10, RAYWHITE);
+                RlDrawText("Press KEY_LEFT | KEY_RIGHT to change speed", 10, 60, 10, RAYWHITE);
+                RlDrawText("Press KEY_SPACE to stop movement animation", 10, 75, 10, RAYWHITE);
+                RlDrawText("Press KEY_R to recenter the camera", 10, 90, 10, RAYWHITE);
             }
         EndDrawing();
         //----------------------------------------------------------------------------------
@@ -195,7 +195,7 @@ int main(void)
     UnloadShader(shader);               // Unload shader
     UnloadRenderTexture(target);        // Unload render texture
 
-    CloseWindow();                      // Close window and OpenGL context
+    RlCloseWindow();                      // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
     return 0;

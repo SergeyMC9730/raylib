@@ -1371,10 +1371,10 @@ void rlViewport(int x, int y, int width, int height)
 }
 
 // Set clip planes distances
-void rlSetClipPlanes(double near, double far)
+void rlSetClipPlanes(double rnear, double rfar)
 {
-    rlCullDistanceNear = near;
-    rlCullDistanceFar = far;
+    rlCullDistanceNear = rnear;
+    rlCullDistanceFar = rfar;
 }
 
 // Get cull plane distance near

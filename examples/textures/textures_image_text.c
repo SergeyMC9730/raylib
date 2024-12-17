@@ -25,7 +25,7 @@ int main(void)
 
     InitWindow(screenWidth, screenHeight, "raylib [texture] example - image text drawing");
 
-    Image parrots = LoadImage("resources/parrots.png"); // Load image in CPU memory (RAM)
+    Image parrots = RlLoadImage("resources/parrots.png"); // Load image in CPU memory (RAM)
 
     // TTF RLFont loading with custom generation parameters
     RLFont font = LoadFontEx("resources/KAISG.ttf", 64, 0, 0);
@@ -64,12 +64,12 @@ int main(void)
                 DrawTextureV(texture, position, WHITE);
 
                 // Draw text directly using sprite font
-                DrawTextEx(font, "[Parrots font drawing]", (Vector2){ position.x + 20,
+                RlDrawTextEx(font, "[Parrots font drawing]", (Vector2){ position.x + 20,
                            position.y + 20 + 280 }, (float)font.baseSize, 0.0f, WHITE);
             }
             else DrawTexture(font.texture, screenWidth/2 - font.texture.width/2, 50, BLACK);
 
-            DrawText("PRESS SPACE to SHOW FONT ATLAS USED", 290, 420, 10, DARKGRAY);
+            RlDrawText("PRESS SPACE to SHOW FONT ATLAS USED", 290, 420, 10, DARKGRAY);
 
         EndDrawing();
         //----------------------------------------------------------------------------------
@@ -81,7 +81,7 @@ int main(void)
 
     UnloadFont(font);           // Unload custom font
 
-    CloseWindow();              // Close window and OpenGL context
+    RlCloseWindow();              // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
     return 0;

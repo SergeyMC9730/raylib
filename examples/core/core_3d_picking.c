@@ -97,11 +97,11 @@ int main(void)
 
             EndMode3D();
 
-            DrawText("Try clicking on the box with your mouse!", 240, 10, 20, DARKGRAY);
+            RlDrawText("Try clicking on the box with your mouse!", 240, 10, 20, DARKGRAY);
 
-            if (collision.hit) DrawText("BOX SELECTED", (screenWidth - MeasureText("BOX SELECTED", 30)) / 2, (int)(screenHeight * 0.1f), 30, GREEN);
+            if (collision.hit) RlDrawText("BOX SELECTED", (screenWidth - MeasureText("BOX SELECTED", 30)) / 2, (int)(screenHeight * 0.1f), 30, GREEN);
 
-            DrawText("Right click mouse to toggle camera controls", 10, 430, 10, GRAY);
+            RlDrawText("Right click mouse to toggle camera controls", 10, 430, 10, GRAY);
 
             DrawFPS(10, 10);
 
@@ -111,7 +111,7 @@ int main(void)
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
-    CloseWindow();        // Close window and OpenGL context
+    RlCloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
     return 0;

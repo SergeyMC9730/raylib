@@ -5,7 +5,7 @@
 *   NOTE: Sprite fonts should be generated following this conventions:
 *
 *     - Characters must be ordered starting with character 32 (Space)
-*     - Every character must be contained within the same Rectangle height
+*     - Every character must be contained within the same RLRectangle height
 *     - Every character and every line must be separated by the same distance (margin/padding)
 *     - Rectangles must be defined by a MAGENTA color background
 *
@@ -70,9 +70,9 @@ int main(void)
 
             ClearBackground(RAYWHITE);
 
-            DrawTextEx(font1, msg1, fontPosition1, (float)font1.baseSize, -3, WHITE);
-            DrawTextEx(font2, msg2, fontPosition2, (float)font2.baseSize, -2, WHITE);
-            DrawTextEx(font3, msg3, fontPosition3, (float)font3.baseSize, 2, WHITE);
+            RlDrawTextEx(font1, msg1, fontPosition1, (float)font1.baseSize, -3, WHITE);
+            RlDrawTextEx(font2, msg2, fontPosition2, (float)font2.baseSize, -2, WHITE);
+            RlDrawTextEx(font3, msg3, fontPosition3, (float)font3.baseSize, 2, WHITE);
 
         EndDrawing();
         //----------------------------------------------------------------------------------
@@ -84,7 +84,7 @@ int main(void)
     UnloadFont(font2);      // RLFont unloading
     UnloadFont(font3);      // RLFont unloading
 
-    CloseWindow();          // Close window and OpenGL context
+    RlCloseWindow();          // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
     return 0;

@@ -64,7 +64,7 @@ int main(void)
 
             // Start drawing with default shader
 
-            DrawText("USING DEFAULT SHADER", 20, 40, 10, RED);
+            RlDrawText("USING DEFAULT SHADER", 20, 40, 10, RED);
 
             DrawCircle(80, 120, 35, DARKBLUE);
             DrawCircleGradient(80, 220, 60, GREEN, SKYBLUE);
@@ -74,7 +74,7 @@ int main(void)
             // Activate our custom shader to be applied on next shapes/textures drawings
             BeginShaderMode(shader);
 
-                DrawText("USING CUSTOM SHADER", 190, 40, 10, RED);
+                RlDrawText("USING CUSTOM SHADER", 190, 40, 10, RED);
 
                 DrawRectangle(250 - 60, 90, 120, 60, RED);
                 DrawRectangleGradientH(250 - 90, 170, 180, 130, MAROON, GOLD);
@@ -83,7 +83,7 @@ int main(void)
             // Activate our default shader for next drawings
             EndShaderMode();
 
-            DrawText("USING DEFAULT SHADER", 370, 40, 10, RED);
+            RlDrawText("USING DEFAULT SHADER", 370, 40, 10, RED);
 
             DrawTriangle((Vector2){430, 80},
                          (Vector2){430 - 60, 150},
@@ -103,7 +103,7 @@ int main(void)
             // Activate our default shader for next drawings
             EndShaderMode();
 
-            DrawText("(c) Fudesumi sprite by Eiden Marsal", 380, screenHeight - 20, 10, GRAY);
+            RlDrawText("(c) Fudesumi sprite by Eiden Marsal", 380, screenHeight - 20, 10, GRAY);
 
         EndDrawing();
         //----------------------------------------------------------------------------------
@@ -114,7 +114,7 @@ int main(void)
     UnloadShader(shader);       // Unload shader
     UnloadTexture(fudesumi);    // Unload texture
 
-    CloseWindow();              // Close window and OpenGL context
+    RlCloseWindow();              // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
     return 0;

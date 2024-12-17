@@ -20,7 +20,7 @@
 
 typedef struct ColorRect{
   Color c;
-  Rectangle r;
+  RLRectangle r;
 } ColorRect;
 
 static Color GenerateRandomColor();
@@ -92,7 +92,7 @@ int main(void) {
 
     const char* rectCountText = TextFormat("%d rectangles", rectCount);
     int rectCountTextSize = MeasureText(rectCountText, fontSize);
-    DrawText(rectCountText, screenWidth - rectCountTextSize - 10, 10, fontSize, BLACK);
+    RlDrawText(rectCountText, screenWidth - rectCountTextSize - 10, 10, fontSize, BLACK);
 
     DrawFPS(10, 10);
 
@@ -104,7 +104,7 @@ int main(void) {
   //--------------------------------------------------------------------------------------
 
   free(rectangles);
-  CloseWindow(); // Close window and OpenGL context
+  RlCloseWindow(); // Close window and OpenGL context
   //--------------------------------------------------------------------------------------
 
   return 0;
@@ -130,7 +130,7 @@ static ColorRect* GenerateRandomColorRectSequence(float rectCount, float rectWid
   for(int x=0;x<rectCount;x++){
     int rectHeight = Remap(seq[x], 0, rectCount-1, 0, screenHeight);
     rectangles[x].c = GenerateRandomColor();
-    rectangles[x].r = CLITERAL(Rectangle){
+    rectangles[x].r = CLITERAL(RLRectangle){
       startX + x * rectWidth, screenHeight - rectHeight, rectWidth, rectHeight
     };
   }
@@ -167,10 +167,10 @@ static void DrawTextCenterKeyHelp(const char* key, const char* text, int posX, i
   int totalSize = pressSize + 2 * spaceSize + keySize + 2 * spaceSize + textSize;
   int textSizeCurrent = 0;
 
-  DrawText("Press", posX, posY, fontSize, color);
+  RlDrawText("Press", posX, posY, fontSize, color);
   textSizeCurrent += pressSize + 2 * spaceSize;
-  DrawText(key, posX + textSizeCurrent, posY, fontSize, RED);
+  RlDrawText(key, posX + textSizeCurrent, posY, fontSize, RED);
   DrawRectangle(posX + textSizeCurrent, posY + fontSize, keySize, 3, RED);
   textSizeCurrent += keySize + 2 * spaceSize;
-  DrawText(text, posX + textSizeCurrent, posY, fontSize, color);
+  RlDrawText(text, posX + textSizeCurrent, posY, fontSize, color);
 }

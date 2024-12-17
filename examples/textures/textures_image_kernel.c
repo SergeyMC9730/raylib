@@ -38,7 +38,7 @@ int main(void)
 
     InitWindow(screenWidth, screenHeight, "raylib [textures] example - image convolution");
         
-    Image image = LoadImage("resources/cat.png");     // Loaded in CPU memory (RAM)
+    Image image = RlLoadImage("resources/cat.png");     // Loaded in CPU memory (RAM)
 
     float gaussiankernel[] = { 
         1.0f, 2.0f, 1.0f,
@@ -72,10 +72,10 @@ int main(void)
         ImageKernelConvolution(&catGaussian, gaussiankernel, 9);
     }
 
-    ImageCrop(&image, (Rectangle){ 0, 0, (float)200, (float)450 });
-    ImageCrop(&catGaussian, (Rectangle){ 0, 0, (float)200, (float)450 });
-    ImageCrop(&catSobel, (Rectangle){ 0, 0, (float)200, (float)450 });
-    ImageCrop(&catSharpend, (Rectangle){ 0, 0, (float)200, (float)450 });
+    ImageCrop(&image, (RLRectangle){ 0, 0, (float)200, (float)450 });
+    ImageCrop(&catGaussian, (RLRectangle){ 0, 0, (float)200, (float)450 });
+    ImageCrop(&catSobel, (RLRectangle){ 0, 0, (float)200, (float)450 });
+    ImageCrop(&catSharpend, (RLRectangle){ 0, 0, (float)200, (float)450 });
     
     // Images converted to texture, GPU memory (VRAM)
     Texture2D texture = LoadTextureFromImage(image);
@@ -123,7 +123,7 @@ int main(void)
     UnloadTexture(catSobelTexture);
     UnloadTexture(catSharpendTexture);
 
-    CloseWindow();                // Close window and OpenGL context
+    RlCloseWindow();                // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
     return 0;

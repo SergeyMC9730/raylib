@@ -52,8 +52,8 @@
 #define RGFW_OPENGL_ES2
 #endif
 
-void ShowCursor(void);
-void CloseWindow(void);
+void RlShowCursor(void);
+void RlCloseWindow(void);
 
 #define _INPUT_EVENT_CODES_H
 #define _APISETSTRING_
@@ -62,9 +62,9 @@ void CloseWindow(void);
 #define RGFW_IMPLEMENTATION
 
 #define WIN32_LEAN_AND_MEAN
-#define Rectangle rectangle_win32
-#define CloseWindow CloseWindow_win32
-#define ShowCursor __imp_ShowCursor
+#define RLRectangle rectangle_win32
+#define RlCloseWindow CloseWindow_win32
+#define RlShowCursor __imp_ShowCursor
 
 #define Point NSPOINT
 #define Size NSSIZE
@@ -74,15 +74,15 @@ __declspec(dllimport) int __stdcall  MultiByteToWideChar(unsigned int CodePage, 
 #endif
 
 #include "../external/RGFW.h"
-#undef DrawText
-#undef ShowCursor
-#undef CloseWindow
+#undef RlDrawText
+#undef RlShowCursor
+#undef RlCloseWindow
 #undef Point
 #undef Size
 
-#define Rectangle struct Rectangle
-void CloseWindow(void);
-void ShowCursor(void);
+#define RLRectangle struct RLRectangle
+void RlCloseWindow(void);
+void RlShowCursor(void);
 
 
 #include <stdbool.h>
@@ -536,7 +536,7 @@ const char *GetClipboardText(void)
 }
 
 // Show mouse cursor
-void ShowCursor(void)
+void RlShowCursor(void)
 {
     RGFW_window_showMouse(platform.window, true);
     CORE.Input.Mouse.cursorHidden = false;

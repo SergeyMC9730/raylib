@@ -109,7 +109,7 @@ int main(void)
 
             EndMode3D();
 
-            DrawText("Move player with cursors to collide", 220, 40, 20, GRAY);
+            RlDrawText("Move player with cursors to collide", 220, 40, 20, GRAY);
 
             DrawFPS(10, 10);
 
@@ -119,7 +119,7 @@ int main(void)
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
-    CloseWindow();        // Close window and OpenGL context
+    RlCloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
     return 0;

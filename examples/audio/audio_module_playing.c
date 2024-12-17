@@ -138,10 +138,10 @@ int main(void)
             // Draw help instructions
             DrawRectangle(20, 20, 425, 145, WHITE);
             DrawRectangleLines(20, 20, 425, 145, GRAY);
-            DrawText("PRESS SPACE TO RESTART MUSIC", 40, 40, 20, BLACK);
-            DrawText("PRESS P TO PAUSE/RESUME", 40, 70, 20, BLACK);
-            DrawText("PRESS UP/DOWN TO CHANGE SPEED", 40, 100, 20, BLACK);
-            DrawText(TextFormat("SPEED: %f", pitch), 40, 130, 20, MAROON);
+            RlDrawText("PRESS SPACE TO RESTART MUSIC", 40, 40, 20, BLACK);
+            RlDrawText("PRESS P TO PAUSE/RESUME", 40, 70, 20, BLACK);
+            RlDrawText("PRESS UP/DOWN TO CHANGE SPEED", 40, 100, 20, BLACK);
+            RlDrawText(TextFormat("SPEED: %f", pitch), 40, 130, 20, MAROON);
 
         EndDrawing();
         //----------------------------------------------------------------------------------
@@ -153,7 +153,7 @@ int main(void)
 
     CloseAudioDevice();     // Close audio device (music streaming is automatically stopped)
 
-    CloseWindow();          // Close window and OpenGL context
+    RlCloseWindow();          // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
     return 0;

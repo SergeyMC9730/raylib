@@ -29,7 +29,7 @@ typedef struct Player {
 } Player;
 
 typedef struct EnvElement {
-    Rectangle rect;
+    RLRectangle rect;
     int blocking;
     Color color;
 } EnvElement;
@@ -286,7 +286,7 @@ int main(void)
                 }
 
                 // Draw player rectangle
-                DrawRectangleRec((Rectangle){ player.position.x - 20, player.position.y - 40, 40, 40 }, RED);
+                DrawRectangleRec((RLRectangle){ player.position.x - 20, player.position.y - 40, 40, 40 }, RED);
 
             EndMode2D();
             
@@ -294,13 +294,13 @@ int main(void)
             DrawRectangle(10, 10, 290, 145, Fade(SKYBLUE, 0.5f));
             DrawRectangleLines(10, 10, 290, 145, Fade(BLUE, 0.8f));
 
-            DrawText("Controls:", 20, 20, 10, BLACK);
-            DrawText("- RIGHT | LEFT: Player movement", 30, 40, 10, DARKGRAY);
-            DrawText("- SPACE: Player jump", 30, 60, 10, DARKGRAY);
-            DrawText("- R: Reset game state", 30, 80, 10, DARKGRAY);
+            RlDrawText("Controls:", 20, 20, 10, BLACK);
+            RlDrawText("- RIGHT | LEFT: Player movement", 30, 40, 10, DARKGRAY);
+            RlDrawText("- SPACE: Player jump", 30, 60, 10, DARKGRAY);
+            RlDrawText("- R: Reset game state", 30, 80, 10, DARKGRAY);
 
-            DrawText("- S: START/STOP RECORDING INPUT EVENTS", 30, 110, 10, BLACK);
-            DrawText("- A: REPLAY LAST RECORDED INPUT EVENTS", 30, 130, 10, BLACK);
+            RlDrawText("- S: START/STOP RECORDING INPUT EVENTS", 30, 110, 10, BLACK);
+            RlDrawText("- A: REPLAY LAST RECORDED INPUT EVENTS", 30, 130, 10, BLACK);
 
             // Draw automation events recording indicator
             if (eventRecording)
@@ -309,7 +309,7 @@ int main(void)
                 DrawRectangleLines(10, 160, 290, 30, Fade(MAROON, 0.8f));
                 DrawCircle(30, 175, 10, MAROON);
 
-                if (((frameCounter/15)%2) == 1) DrawText(TextFormat("RECORDING EVENTS... [%i]", aelist.count), 50, 170, 10, MAROON);
+                if (((frameCounter/15)%2) == 1) RlDrawText(TextFormat("RECORDING EVENTS... [%i]", aelist.count), 50, 170, 10, MAROON);
             }
             else if (eventPlaying)
             {
@@ -317,7 +317,7 @@ int main(void)
                 DrawRectangleLines(10, 160, 290, 30, Fade(DARKGREEN, 0.8f));
                 DrawTriangle((Vector2){ 20, 155 + 10 }, (Vector2){ 20, 155 + 30 }, (Vector2){ 40, 155 + 20 }, DARKGREEN);
 
-                if (((frameCounter/15)%2) == 1) DrawText(TextFormat("PLAYING RECORDED EVENTS... [%i]", currentPlayFrame), 50, 170, 10, DARKGREEN);
+                if (((frameCounter/15)%2) == 1) RlDrawText(TextFormat("PLAYING RECORDED EVENTS... [%i]", currentPlayFrame), 50, 170, 10, DARKGREEN);
             }
             
 
@@ -327,7 +327,7 @@ int main(void)
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
-    CloseWindow();        // Close window and OpenGL context
+    RlCloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
     return 0;

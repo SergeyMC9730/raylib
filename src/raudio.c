@@ -106,7 +106,7 @@
 #define NOCLIPBOARD       // Clipboard routines
 #define NOCOLOR           // Screen colors
 #define NOCTLMGR          // Control and Dialog routines
-#define NODRAWTEXT        // DrawText() and DT_*
+#define NODRAWTEXT        // RlDrawText() and DT_*
 #define NOGDI             // All GDI defines and routines
 #define NOKERNEL          // All KERNEL defines and routines
 #define NOUSER            // All USER defines and routines
@@ -178,7 +178,7 @@ typedef struct tagBITMAPINFOHEADER {
 #define MINIAUDIO_IMPLEMENTATION
 //#define MA_DEBUG_OUTPUT
 #include "external/miniaudio.h"         // Audio device initialization and management
-#undef PlaySound                        // Win32 API: windows.h > mmsystem.h defines PlaySound macro
+#undef RlPlaySound                        // Win32 API: windows.h > mmsystem.h defines RlPlaySound macro
 
 #include <stdlib.h>                     // Required for: malloc(), free()
 #include <stdio.h>                      // Required for: FILE, fopen(), fclose(), fread()
@@ -1169,7 +1169,7 @@ bool ExportWaveAsCode(Wave wave, const char *fileName)
 }
 
 // Play a sound
-void PlaySound(Sound sound)
+void RlPlaySound(Sound sound)
 {
     PlayAudioBuffer(sound.stream.buffer);
 }

@@ -131,9 +131,9 @@ int main(void)
 
             EndShaderMode();
 
-            DrawText("< >", 10, 10, 30, DARKBLUE);
-            DrawText("CURRENT PALETTE:", 60, 15, 20, RAYWHITE);
-            DrawText(paletteText[currentPalette], 300, 15, 20, RED);
+            RlDrawText("< >", 10, 10, 30, DARKBLUE);
+            RlDrawText("CURRENT PALETTE:", 60, 15, 20, RAYWHITE);
+            RlDrawText(paletteText[currentPalette], 300, 15, 20, RED);
 
             DrawFPS(700, 15);
 
@@ -145,7 +145,7 @@ int main(void)
     //--------------------------------------------------------------------------------------
     UnloadShader(shader);       // Unload shader
 
-    CloseWindow();              // Close window and OpenGL context
+    RlCloseWindow();              // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
     return 0;

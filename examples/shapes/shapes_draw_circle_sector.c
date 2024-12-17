@@ -63,15 +63,15 @@ int main(void)
 
             // Draw GUI controls
             //------------------------------------------------------------------------------
-            GuiSliderBar((Rectangle){ 600, 40, 120, 20}, "StartAngle", NULL, &startAngle, 0, 720);
-            GuiSliderBar((Rectangle){ 600, 70, 120, 20}, "EndAngle", NULL, &endAngle, 0, 720);
+            GuiSliderBar((RLRectangle){ 600, 40, 120, 20}, "StartAngle", NULL, &startAngle, 0, 720);
+            GuiSliderBar((RLRectangle){ 600, 70, 120, 20}, "EndAngle", NULL, &endAngle, 0, 720);
 
-            GuiSliderBar((Rectangle){ 600, 140, 120, 20}, "Radius", NULL, &outerRadius, 0, 200);
-            GuiSliderBar((Rectangle){ 600, 170, 120, 20}, "Segments", NULL, &segments, 0, 100);
+            GuiSliderBar((RLRectangle){ 600, 140, 120, 20}, "Radius", NULL, &outerRadius, 0, 200);
+            GuiSliderBar((RLRectangle){ 600, 170, 120, 20}, "Segments", NULL, &segments, 0, 100);
             //------------------------------------------------------------------------------
 
             minSegments = truncf(ceilf((endAngle - startAngle) / 90));
-            DrawText(TextFormat("MODE: %s", (segments >= minSegments)? "MANUAL" : "AUTO"), 600, 200, 10, (segments >= minSegments)? MAROON : DARKGRAY);
+            RlDrawText(TextFormat("MODE: %s", (segments >= minSegments)? "MANUAL" : "AUTO"), 600, 200, 10, (segments >= minSegments)? MAROON : DARKGRAY);
 
             DrawFPS(10, 10);
 
@@ -81,7 +81,7 @@ int main(void)
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
-    CloseWindow();        // Close window and OpenGL context
+    RlCloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
     return 0;

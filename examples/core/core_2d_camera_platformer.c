@@ -27,7 +27,7 @@ typedef struct Player {
 } Player;
 
 typedef struct EnvItem {
-    Rectangle rect;
+    RLRectangle rect;
     int blocking;
     Color color;
 } EnvItem;
@@ -133,20 +133,20 @@ int main(void)
 
                 for (int i = 0; i < envItemsLength; i++) DrawRectangleRec(envItems[i].rect, envItems[i].color);
 
-                Rectangle playerRect = { player.position.x - 20, player.position.y - 40, 40, 40 };
+                RLRectangle playerRect = { player.position.x - 20, player.position.y - 40, 40, 40 };
                 DrawRectangleRec(playerRect, RED);
                 
                 DrawCircle(player.position.x, player.position.y, 5, GOLD);
 
             EndMode2D();
 
-            DrawText("Controls:", 20, 20, 10, BLACK);
-            DrawText("- Right/Left to move", 40, 40, 10, DARKGRAY);
-            DrawText("- Space to jump", 40, 60, 10, DARKGRAY);
-            DrawText("- Mouse Wheel to Zoom in-out, R to reset zoom", 40, 80, 10, DARKGRAY);
-            DrawText("- C to change camera mode", 40, 100, 10, DARKGRAY);
-            DrawText("Current camera mode:", 20, 120, 10, BLACK);
-            DrawText(cameraDescriptions[cameraOption], 40, 140, 10, DARKGRAY);
+            RlDrawText("Controls:", 20, 20, 10, BLACK);
+            RlDrawText("- Right/Left to move", 40, 40, 10, DARKGRAY);
+            RlDrawText("- Space to jump", 40, 60, 10, DARKGRAY);
+            RlDrawText("- Mouse Wheel to Zoom in-out, R to reset zoom", 40, 80, 10, DARKGRAY);
+            RlDrawText("- C to change camera mode", 40, 100, 10, DARKGRAY);
+            RlDrawText("Current camera mode:", 20, 120, 10, BLACK);
+            RlDrawText(cameraDescriptions[cameraOption], 40, 140, 10, DARKGRAY);
 
         EndDrawing();
         //----------------------------------------------------------------------------------
@@ -154,7 +154,7 @@ int main(void)
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
-    CloseWindow();        // Close window and OpenGL context
+    RlCloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
     return 0;

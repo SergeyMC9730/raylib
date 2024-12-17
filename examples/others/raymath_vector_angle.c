@@ -76,8 +76,8 @@ int main(void)
             
             if (angleMode == 0)
             {
-                DrawText("MODE 0: Angle between V1 and V2", 10, 10, 20, BLACK);
-                DrawText("Right Click to Move V2", 10, 30, 20, DARKGRAY);
+                RlDrawText("MODE 0: Angle between V1 and V2", 10, 10, 20, BLACK);
+                RlDrawText("Right Click to Move V2", 10, 30, 20, DARKGRAY);
                 
                 DrawLineEx(v0, v1, 2.0f, BLACK);
                 DrawLineEx(v0, v2, 2.0f, RED);
@@ -86,7 +86,7 @@ int main(void)
             }
             else if (angleMode == 1)
             {
-                DrawText("MODE 1: Angle formed by line V1 to V2", 10, 10, 20, BLACK);
+                RlDrawText("MODE 1: Angle formed by line V1 to V2", 10, 10, 20, BLACK);
                 
                 DrawLine(0, screenHeight/2, screenWidth, screenHeight/2, LIGHTGRAY);
                 DrawLineEx(v0, v2, 2.0f, RED);
@@ -94,20 +94,20 @@ int main(void)
                 DrawCircleSector(v0, 40.0f, startangle, startangle - angle, 32, Fade(GREEN, 0.6f));
             }
             
-            DrawText("v0", v0.x, v0.y, 10, DARKGRAY);
+            RlDrawText("v0", v0.x, v0.y, 10, DARKGRAY);
 
             // If the line from v0 to v1 would overlap the text, move it's position up 10
-            if (angleMode == 0 && Vector2Subtract(v0, v1).y > 0.0f) DrawText("v1", v1.x, v1.y-10.0f, 10, DARKGRAY);
-            if (angleMode == 0 && Vector2Subtract(v0, v1).y < 0.0f) DrawText("v1", v1.x, v1.y, 10, DARKGRAY);
+            if (angleMode == 0 && Vector2Subtract(v0, v1).y > 0.0f) RlDrawText("v1", v1.x, v1.y-10.0f, 10, DARKGRAY);
+            if (angleMode == 0 && Vector2Subtract(v0, v1).y < 0.0f) RlDrawText("v1", v1.x, v1.y, 10, DARKGRAY);
 
             // If angle mode 1, use v1 to emphasize the horizontal line
-            if (angleMode == 1) DrawText("v1", v0.x + 40.0f, v0.y, 10, DARKGRAY);
+            if (angleMode == 1) RlDrawText("v1", v0.x + 40.0f, v0.y, 10, DARKGRAY);
 
             // position adjusted by -10 so it isn't hidden by cursor
-            DrawText("v2", v2.x-10.0f, v2.y-10.0f, 10, DARKGRAY);
+            RlDrawText("v2", v2.x-10.0f, v2.y-10.0f, 10, DARKGRAY);
 
-            DrawText("Press SPACE to change MODE", 460, 10, 20, DARKGRAY);
-            DrawText(TextFormat("ANGLE: %2.2f", angle), 10, 70, 20, LIME);
+            RlDrawText("Press SPACE to change MODE", 460, 10, 20, DARKGRAY);
+            RlDrawText(TextFormat("ANGLE: %2.2f", angle), 10, 70, 20, LIME);
             
         EndDrawing();
         //----------------------------------------------------------------------------------
@@ -115,7 +115,7 @@ int main(void)
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
-    CloseWindow();        // Close window and OpenGL context
+    RlCloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
     return 0;

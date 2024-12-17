@@ -50,7 +50,7 @@ int main(void)
         //----------------------------------------------------------------------------------
         if (IsKeyPressed(KEY_SPACE))
         {
-            PlaySound(soundArray[currentSound]);            // play the next open sound slot
+            RlPlaySound(soundArray[currentSound]);            // play the next open sound slot
             currentSound++;                                 // increment the sound slot
             if (currentSound >= MAX_SOUNDS)                 // if the sound slot is out of bounds, go back to 0
                 currentSound = 0;
@@ -66,7 +66,7 @@ int main(void)
 
             ClearBackground(RAYWHITE);
 
-            DrawText("Press SPACE to PLAY a WAV sound!", 200, 180, 20, LIGHTGRAY);
+            RlDrawText("Press SPACE to PLAY a WAV sound!", 200, 180, 20, LIGHTGRAY);
 
         EndDrawing();
         //----------------------------------------------------------------------------------
@@ -80,7 +80,7 @@ int main(void)
 
     CloseAudioDevice();     // Close audio device
 
-    CloseWindow();          // Close window and OpenGL context
+    RlCloseWindow();          // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
     return 0;

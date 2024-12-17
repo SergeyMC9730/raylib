@@ -61,7 +61,7 @@ int main(void)
 
             EndMode3D();
 
-            DrawText("Welcome to the third dimension!", 10, 40, 20, DARKGRAY);
+            RlDrawText("Welcome to the third dimension!", 10, 40, 20, DARKGRAY);
 
             DrawFPS(10, 10);
 
@@ -71,7 +71,7 @@ int main(void)
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
-    CloseWindow();        // Close window and OpenGL context
+    RlCloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
     return 0;

@@ -47,8 +47,8 @@ int main(void)
 
             DrawRectangle(screenWidth/2 - 40, boxPositionY, 80, 80, MAROON);
 
-            DrawText("Use mouse wheel to move the cube up and down!", 10, 10, 20, GRAY);
-            DrawText(TextFormat("Box position Y: %03i", boxPositionY), 10, 40, 20, LIGHTGRAY);
+            RlDrawText("Use mouse wheel to move the cube up and down!", 10, 10, 20, GRAY);
+            RlDrawText(TextFormat("Box position Y: %03i", boxPositionY), 10, 40, 20, LIGHTGRAY);
 
         EndDrawing();
         //----------------------------------------------------------------------------------
@@ -56,7 +56,7 @@ int main(void)
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
-    CloseWindow();        // Close window and OpenGL context
+    RlCloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
     return 0;

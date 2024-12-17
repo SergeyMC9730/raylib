@@ -86,19 +86,19 @@ int main(void)
 
             DrawRectangle(30, 400, 325, 30, Fade(SKYBLUE, 0.5f));
             DrawRectangleLines(30, 400, 325, 30, Fade(WHITE, 0.5f));
-            DrawText("MOUSE LEFT BUTTON to CYCLE PROCEDURAL TEXTURES", 40, 410, 10, WHITE);
+            RlDrawText("MOUSE LEFT BUTTON to CYCLE PROCEDURAL TEXTURES", 40, 410, 10, WHITE);
 
             switch(currentTexture)
             {
-                case 0: DrawText("VERTICAL GRADIENT", 560, 10, 20, RAYWHITE); break;
-                case 1: DrawText("HORIZONTAL GRADIENT", 540, 10, 20, RAYWHITE); break;
-                case 2: DrawText("DIAGONAL GRADIENT", 540, 10, 20, RAYWHITE); break;
-                case 3: DrawText("RADIAL GRADIENT", 580, 10, 20, LIGHTGRAY); break;
-                case 4: DrawText("SQUARE GRADIENT", 580, 10, 20, LIGHTGRAY); break;
-                case 5: DrawText("CHECKED", 680, 10, 20, RAYWHITE); break;
-                case 6: DrawText("WHITE NOISE", 640, 10, 20, RED); break;
-                case 7: DrawText("PERLIN NOISE", 640, 10, 20, RED); break;
-                case 8: DrawText("CELLULAR", 670, 10, 20, RAYWHITE); break;
+                case 0: RlDrawText("VERTICAL GRADIENT", 560, 10, 20, RAYWHITE); break;
+                case 1: RlDrawText("HORIZONTAL GRADIENT", 540, 10, 20, RAYWHITE); break;
+                case 2: RlDrawText("DIAGONAL GRADIENT", 540, 10, 20, RAYWHITE); break;
+                case 3: RlDrawText("RADIAL GRADIENT", 580, 10, 20, LIGHTGRAY); break;
+                case 4: RlDrawText("SQUARE GRADIENT", 580, 10, 20, LIGHTGRAY); break;
+                case 5: RlDrawText("CHECKED", 680, 10, 20, RAYWHITE); break;
+                case 6: RlDrawText("WHITE NOISE", 640, 10, 20, RED); break;
+                case 7: RlDrawText("PERLIN NOISE", 640, 10, 20, RED); break;
+                case 8: RlDrawText("CELLULAR", 670, 10, 20, RAYWHITE); break;
                 default: break;
             }
 
@@ -112,7 +112,7 @@ int main(void)
     // Unload textures data (GPU VRAM)
     for (int i = 0; i < NUM_TEXTURES; i++) UnloadTexture(textures[i]);
 
-    CloseWindow();                // Close window and OpenGL context
+    RlCloseWindow();                // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
     return 0;

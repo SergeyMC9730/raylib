@@ -28,9 +28,9 @@ int main(void)
     InitWindow(screenWidth, screenHeight, "raylib [textures] example - texture rotation");
 
     // NOTE: Textures MUST be loaded after Window initialization (OpenGL context is required)
-    Image image45 = LoadImage("resources/raylib_logo.png");
-    Image image90 = LoadImage("resources/raylib_logo.png");
-    Image imageNeg90 = LoadImage("resources/raylib_logo.png");
+    Image image45 = RlLoadImage("resources/raylib_logo.png");
+    Image image90 = RlLoadImage("resources/raylib_logo.png");
+    Image imageNeg90 = RlLoadImage("resources/raylib_logo.png");
 
     ImageRotate(&image45, 45);
     ImageRotate(&image90, 90);
@@ -64,7 +64,7 @@ int main(void)
 
             DrawTexture(textures[currentTexture], screenWidth/2 - textures[currentTexture].width/2, screenHeight/2 - textures[currentTexture].height/2, WHITE);
 
-            DrawText("Press LEFT MOUSE BUTTON to rotate the image clockwise", 250, 420, 10, DARKGRAY);
+            RlDrawText("Press LEFT MOUSE BUTTON to rotate the image clockwise", 250, 420, 10, DARKGRAY);
 
         EndDrawing();
         //----------------------------------------------------------------------------------
@@ -74,7 +74,7 @@ int main(void)
     //--------------------------------------------------------------------------------------
     for (int i = 0; i < NUM_TEXTURES; i++) UnloadTexture(textures[i]);
 
-    CloseWindow();                // Close window and OpenGL context
+    RlCloseWindow();                // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
     return 0;

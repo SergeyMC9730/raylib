@@ -207,9 +207,9 @@ int main(void)
 
             DrawFPS(10, 10);
 
-            DrawText("Move the mouse!", 10, 30, 20, GREEN);
-            DrawText("Pitch Black", (int)(screenWidth*0.2f), screenHeight/2, 20, GREEN);
-            DrawText("Dark", (int)(screenWidth*.66f), screenHeight/2, 20, GREEN);
+            RlDrawText("Move the mouse!", 10, 30, 20, GREEN);
+            RlDrawText("Pitch Black", (int)(screenWidth*0.2f), screenHeight/2, 20, GREEN);
+            RlDrawText("Dark", (int)(screenWidth*.66f), screenHeight/2, 20, GREEN);
 
         EndDrawing();
         //----------------------------------------------------------------------------------
@@ -220,7 +220,7 @@ int main(void)
     UnloadTexture(texRay);
     UnloadShader(shdrSpot);
 
-    CloseWindow();        // Close window and OpenGL context
+    RlCloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
     return 0;

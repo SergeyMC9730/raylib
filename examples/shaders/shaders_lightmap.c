@@ -98,24 +98,24 @@ int main(void)
         BeginBlendMode(BLEND_ADDITIVE);
             DrawTexturePro(
                 light,
-                (Rectangle){ 0, 0, light.width, light.height },
-                (Rectangle){ 0, 0, 20, 20 },
+                (RLRectangle){ 0, 0, light.width, light.height },
+                (RLRectangle){ 0, 0, 20, 20 },
                 (Vector2){ 10.0, 10.0 },
                 0.0,
                 RED
             );
             DrawTexturePro(
                 light,
-                (Rectangle){ 0, 0, light.width, light.height },
-                (Rectangle){ 8, 4, 20, 20 },
+                (RLRectangle){ 0, 0, light.width, light.height },
+                (RLRectangle){ 8, 4, 20, 20 },
                 (Vector2){ 10.0, 10.0 },
                 0.0,
                 BLUE
             );
             DrawTexturePro(
                 light,
-                (Rectangle){ 0, 0, light.width, light.height },
-                (Rectangle){ 8, 8, 10, 10 },
+                (RLRectangle){ 0, 0, light.width, light.height },
+                (RLRectangle){ 8, 8, 10, 10 },
                 (Vector2){ 5.0, 5.0 },
                 0.0,
                 GREEN
@@ -147,14 +147,14 @@ int main(void)
 
             DrawTexturePro(
                 lightmap.texture,
-                (Rectangle){ 0, 0, -MAP_SIZE, -MAP_SIZE },
-                (Rectangle){ GetRenderWidth() - MAP_SIZE*8 - 10, 10, MAP_SIZE*8, MAP_SIZE*8 },
+                (RLRectangle){ 0, 0, -MAP_SIZE, -MAP_SIZE },
+                (RLRectangle){ GetRenderWidth() - MAP_SIZE*8 - 10, 10, MAP_SIZE*8, MAP_SIZE*8 },
                 (Vector2){ 0.0, 0.0 },
                 0.0,
                 WHITE);
                 
-            DrawText("lightmap", GetRenderWidth() - 66, 16 + MAP_SIZE*8, 10, GRAY);
-            DrawText("10x10 pixels", GetRenderWidth() - 76, 30 + MAP_SIZE*8, 10, GRAY);
+            RlDrawText("lightmap", GetRenderWidth() - 66, 16 + MAP_SIZE*8, 10, GRAY);
+            RlDrawText("10x10 pixels", GetRenderWidth() - 76, 30 + MAP_SIZE*8, 10, GRAY);
                 
         EndDrawing();
         //----------------------------------------------------------------------------------
@@ -165,7 +165,7 @@ int main(void)
     UnloadMesh(mesh);       // Unload the mesh
     UnloadShader(shader);   // Unload shader
 
-    CloseWindow();          // Close window and OpenGL context
+    RlCloseWindow();          // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
     return 0;
