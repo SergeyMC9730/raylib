@@ -585,6 +585,13 @@ RLFont LoadFontFromMemory(const char *fileType, const unsigned char *fileData, i
 // WARNING: GPU texture not checked
 bool IsFontReady(RLFont font)
 {
+    return IsFontValid(font);
+}
+
+// Check if a font is valid (font data loaded)
+// WARNING: GPU texture not checked
+bool IsFontValid(RLFont font)
+{
     return ((font.baseSize > 0) &&      // Validate font size
             (font.glyphCount > 0) &&    // Validate font contains some glyph
             (font.recs != NULL) &&      // Validate font recs defining glyphs on texture atlas
@@ -592,6 +599,7 @@ bool IsFontReady(RLFont font)
 
     // NOTE: Further validations could be done to verify if recs and glyphs contain valid data (glyphs values, metrics...)
 }
+
 
 // Load font data for further use
 // NOTE: Requires TTF font memory data and can generate SDF data
