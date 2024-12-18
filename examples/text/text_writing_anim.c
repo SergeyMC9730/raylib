@@ -51,8 +51,13 @@ int main(void)
 
             RlDrawText(TextSubtext(message, 0, framesCounter/10), 210, 160, 20, MAROON);
 
+<<<<<<< HEAD
             RlDrawText("PRESS [ENTER] to RESTART!", 240, 260, 20, LIGHTGRAY);
             RlDrawText("PRESS [SPACE] to SPEED UP!", 239, 300, 20, LIGHTGRAY);
+=======
+            DrawText("PRESS [ENTER] to RESTART!", 240, 260, 20, LIGHTGRAY);
+            DrawText("HOLD [SPACE] to SPEED UP!", 239, 300, 20, LIGHTGRAY);
+>>>>>>> upstream/master
 
         EndDrawing();
         //----------------------------------------------------------------------------------

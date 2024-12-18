@@ -292,6 +292,16 @@ const char *GetClipboardText(void)
     return NULL;
 }
 
+// Get clipboard image
+Image GetClipboardImage(void)
+{
+    Image image = { 0 };
+
+    TRACELOG(LOG_WARNING, "GetClipboardImage() not implemented on target platform");
+
+    return image;
+}
+
 // Show mouse cursor
 void RlShowCursor(void)
 {
@@ -384,6 +394,13 @@ void SetMouseCursor(int cursor)
     TRACELOG(LOG_WARNING, "SetMouseCursor() not implemented on target platform");
 }
 
+// Get physical key name.
+const char *GetKeyName(int key)
+{
+    TRACELOG(LOG_WARNING, "GetKeyName() not implemented on target platform");
+    return "";
+}
+
 // Register all input events
 void PollInputEvents(void)
 {
@@ -422,7 +439,6 @@ void PollInputEvents(void)
 
     // TODO: Poll input events for current platform
 }
-
 
 //----------------------------------------------------------------------------------
 // Module Internal Functions Definition

@@ -47,10 +47,11 @@ int main(void)
 
             ClearBackground(RAYWHITE);
 
-            for (int i = 0, y = 10; i < 4; i++)     // MAX_GAMEPADS = 4
+            for (int i = 0, y = 5; i < 4; i++)     // MAX_GAMEPADS = 4
             {
                 if (IsGamepadAvailable(i))
                 {
+<<<<<<< HEAD
                     RlDrawText(TextFormat("Gamepad name: %s", GetGamepadName(i)), 10, y, 20, BLACK);
                     y += 30;
                     RlDrawText(TextFormat("\tAxis count:   %d", GetGamepadAxisCount(i)), 10, y, 20, BLACK);
@@ -60,12 +61,28 @@ int main(void)
                     {
                         RlDrawText(TextFormat("\tAxis %d = %f", axis, GetGamepadAxisMovement(i, axis)), 10, y, 20, BLACK);
                         y += 30;
+=======
+                    DrawText(TextFormat("Gamepad name: %s", GetGamepadName(i)), 10, y, 10, BLACK);
+                    y += 11;
+                    DrawText(TextFormat("\tAxis count:   %d", GetGamepadAxisCount(i)), 10, y, 10, BLACK);
+                    y += 11;
+
+                    for (int axis = 0; axis < GetGamepadAxisCount(i); axis++)
+                    {
+                        DrawText(TextFormat("\tAxis %d = %f", axis, GetGamepadAxisMovement(i, axis)), 10, y, 10, BLACK);
+                        y += 11;
+>>>>>>> upstream/master
                     }
 
                     for (int button = 0; button < 32; button++)
                     {
+<<<<<<< HEAD
                         RlDrawText(TextFormat("\tButton %d = %d", button, IsGamepadButtonDown(i, button)), 10, y, 20, BLACK);
                         y += 30;
+=======
+                        DrawText(TextFormat("\tButton %d = %d", button, IsGamepadButtonDown(i, button)), 10, y, 10, BLACK);
+                        y += 11;
+>>>>>>> upstream/master
                     }
                 }
             }

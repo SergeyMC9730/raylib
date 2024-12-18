@@ -22,7 +22,7 @@
 #if defined(PLATFORM_DESKTOP)
     #define GLSL_VERSION            330
 #else   // PLATFORM_ANDROID, PLATFORM_WEB
-    #define GLSL_VERSION            120
+    #define GLSL_VERSION            100
 #endif
 
 #include <stdlib.h>             // Required for: NULL
@@ -236,7 +236,7 @@ int main()
                 float emissiveIntensity = 0.01f;
                 SetShaderValue(shader, emissiveIntensityLoc, &emissiveIntensity, SHADER_UNIFORM_FLOAT);
                 
-                DrawModel(car, (Vector3){ 0.0f, 0.0f, 0.0f }, 0.005f, WHITE);   // Draw car model
+                DrawModel(car, (Vector3){ 0.0f, 0.0f, 0.0f }, 0.25f, WHITE);   // Draw car model
 
                 // Draw spheres to show the lights positions
                 for (int i = 0; i < MAX_LIGHTS; i++)

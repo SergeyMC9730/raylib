@@ -77,6 +77,7 @@ int main(void)
     // De-Initialization
     //--------------------------------------------------------------------------------------
     UnloadShader(shader);
+    UnloadTexture(texture);
 
     RlCloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
