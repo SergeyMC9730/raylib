@@ -47,13 +47,8 @@ int main(void)
 
     UnloadImage(cat);       // Unload image from RAM
 
-<<<<<<< HEAD
-    // Load custom font for frawing on image
-    RLFont font = LoadFont("resources/custom_jupiter_crash.png");
-=======
     // Load custom font for drawing on image
-    Font font = LoadFont("resources/custom_jupiter_crash.png");
->>>>>>> upstream/master
+    RLFont font = LoadFont("resources/custom_jupiter_crash.png");
 
     // Draw over image using custom font
     ImageDrawTextEx(&parrots, font, "PARROTS & CAT", (Vector2){ 300, 230 }, (float)font.baseSize, -2, WHITE);
