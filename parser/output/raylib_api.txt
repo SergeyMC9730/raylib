@@ -2576,7 +2576,7 @@ Function 265: CheckCollisionRecs() (2 input parameters)
   Description: Check collision between two rectangles
   Param[1]: rec1 (type: RLRectangle)
   Param[2]: rec2 (type: RLRectangle)
-Function 259: CheckCollisionCircles() (4 input parameters)
+Function 266: CheckCollisionCircles() (4 input parameters)
   Name: CheckCollisionCircles
   Return type: bool
   Description: Check collision between two circles
@@ -2590,7 +2590,7 @@ Function 267: CheckCollisionCircleRec() (3 input parameters)
   Description: Check collision between circle and rectangle
   Param[1]: center (type: Vector2)
   Param[2]: radius (type: float)
-  Param[3]: rec (type: Rectangle)
+  Param[3]: rec (type: RLRectangle)
 Function 268: CheckCollisionCircleLine() (4 input parameters)
   Name: CheckCollisionCircleLine
   Return type: bool
@@ -2605,7 +2605,7 @@ Function 269: CheckCollisionPointRec() (2 input parameters)
   Description: Check if point is inside rectangle
   Param[1]: point (type: Vector2)
   Param[2]: rec (type: RLRectangle)
-Function 262: CheckCollisionPointCircle() (3 input parameters)
+Function 270: CheckCollisionPointCircle() (3 input parameters)
   Name: CheckCollisionPointCircle
   Return type: bool
   Description: Check if point is inside circle
@@ -2648,8 +2648,8 @@ Function 275: GetCollisionRec() (2 input parameters)
   Name: GetCollisionRec
   Return type: RLRectangle
   Description: Get collision rectangle for two rectangles collision
-  Param[1]: rec1 (type: Rectangle)
-  Param[2]: rec2 (type: Rectangle)
+  Param[1]: rec1 (type: RLRectangle)
+  Param[2]: rec2 (type: RLRectangle)
 Function 276: RlLoadImage() (1 input parameters)
   Name: RlLoadImage
   Return type: Image
@@ -2808,7 +2808,7 @@ Function 298: ImageFromImage() (2 input parameters)
   Return type: Image
   Description: Create an image from another image piece
   Param[1]: image (type: Image)
-  Param[2]: rec (type: Rectangle)
+  Param[2]: rec (type: RLRectangle)
 Function 299: ImageFromChannel() (2 input parameters)
   Name: ImageFromChannel
   Return type: Image
@@ -3439,7 +3439,7 @@ Function 390: GetPixelDataSize() (3 input parameters)
 Function 391: GetFontDefault() (0 input parameters)
   Name: GetFontDefault
   Return type: RLFont
-  Description: Get the default RLFont
+  Description: Get the default Font
   No input parameters
 Function 392: LoadFont() (1 input parameters)
   Name: LoadFont
@@ -3519,7 +3519,7 @@ Function 402: DrawFPS() (2 input parameters)
   Description: Draw current FPS
   Param[1]: posX (type: int)
   Param[2]: posY (type: int)
-Function 403: RLDrawText() (5 input parameters)
+Function 403: RlDrawText() (5 input parameters)
   Name: RlDrawText
   Return type: void
   Description: Draw text (using default font)
@@ -3528,7 +3528,7 @@ Function 403: RLDrawText() (5 input parameters)
   Param[3]: posY (type: int)
   Param[4]: fontSize (type: int)
   Param[5]: color (type: Color)
-Function 404: RLDrawTextEx() (6 input parameters)
+Function 404: RlDrawTextEx() (6 input parameters)
   Name: RlDrawTextEx
   Return type: void
   Description: Draw text using font and additional parameters
@@ -4415,7 +4415,7 @@ Function 534: ExportWaveAsCode() (2 input parameters)
   Param[1]: wave (type: Wave)
   Param[2]: fileName (type: const char *)
 Function 535: RlPlaySound() (1 input parameters)
-  Name: PlaySound
+  Name: RlPlaySound
   Return type: void
   Description: Play a sound
   Param[1]: sound (type: Sound)
