@@ -6510,7 +6510,7 @@ return {
     },
     {
       name = "GetFontDefault",
-      description = "Get the default RLFont",
+      description = "Get the default Font",
       returnType = "RLFont"
     },
     {
