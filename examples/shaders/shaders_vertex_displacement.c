@@ -99,7 +99,7 @@ int main(void)
 
             EndMode3D();
 
-            DrawText("Vertex displacement", 10, 10, 20, DARKGRAY);
+            RlDrawText("Vertex displacement", 10, 10, 20, DARKGRAY);
             DrawFPS(10, 40);
 
         EndDrawing();
@@ -112,7 +112,7 @@ int main(void)
     UnloadModel(planeModel);
     UnloadTexture(perlinNoiseMap);
 
-    CloseWindow();        // Close window and OpenGL context
+    RlCloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
     return 0;

@@ -2393,11 +2393,7 @@
             </Overload>
         </KeyWord>
         <KeyWord name="LoadFontEx" func="yes">
-<<<<<<< HEAD
-            <Overload retVal="RLFont" descr="Load font from file with extended parameters, use NULL for codepoints and 0 for codepointCount to load the default character set">
-=======
-            <Overload retVal="Font" descr="Load font from file with extended parameters, use NULL for codepoints and 0 for codepointCount to load the default character set, font size is provided in pixels height">
->>>>>>> upstream/master
+            <Overload retVal="RLFont" descr="Load font from file with extended parameters, use NULL for codepoints and 0 for codepointCount to load the default character set, font size is provided in pixels height">
                 <Param name="const char *fileName" />
                 <Param name="int fontSize" />
                 <Param name="int *codepoints" />
@@ -3034,7 +3030,7 @@
 <<<<<<< HEAD
                 <Param name="0ï¿½8ï¿½ " />
 =======
-                <Param name="°ñ_)% " />
+                <Param name="ï¿½ï¿½_)% " />
 >>>>>>> upstream/master
             </Overload>
         </KeyWord>

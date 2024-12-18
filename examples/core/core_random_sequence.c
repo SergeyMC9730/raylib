@@ -130,13 +130,8 @@ static ColorRect* GenerateRandomColorRectSequence(float rectCount, float rectWid
   for(int x=0;x<rectCount;x++){
     int rectHeight = (int)Remap((float)seq[x], 0, rectCount-1, 0, screenHeight);
     rectangles[x].c = GenerateRandomColor();
-<<<<<<< HEAD
     rectangles[x].r = CLITERAL(RLRectangle){
-      startX + x * rectWidth, screenHeight - rectHeight, rectWidth, rectHeight
-=======
-    rectangles[x].r = CLITERAL(Rectangle){
       startX + x * rectWidth, screenHeight - rectHeight, rectWidth, (float)rectHeight
->>>>>>> upstream/master
     };
   }
   UnloadRandomSequence(seq);

@@ -4,7 +4,7 @@
 
 // Draw rectangle with rounded edges and horizontal gradient, with options to choose side of roundness
 // Adapted from both `DrawRectangleRounded` and `DrawRectangleGradientH`
-void DrawRectangleRoundedGradientH(Rectangle rec, float roundnessLeft, float roundnessRight, int segments, Color left, Color right)
+void DrawRectangleRoundedGradientH(RLRectangle rec, float roundnessLeft, float roundnessRight, int segments, Color left, Color right)
 {
     // Neither side is rounded
     if ((roundnessLeft <= 0.0f && roundnessRight <= 0.0f) || (rec.width < 1) || (rec.height < 1 ))
@@ -63,7 +63,7 @@ void DrawRectangleRoundedGradientH(Rectangle rec, float roundnessLeft, float rou
 
 #if defined(SUPPORT_QUADS_DRAW_MODE)
     rlSetTexture(GetShapesTexture().id);
-    Rectangle shapeRect = GetShapesTextureRectangle();
+    RLRectangle shapeRect = GetShapesTextureRectangle();
 
     rlBegin(RL_QUADS);
         // Draw all the 4 corners: [1] Upper Left Corner, [3] Upper Right Corner, [5] Lower Right Corner, [7] Lower Left Corner
@@ -120,7 +120,7 @@ void DrawRectangleRoundedGradientH(Rectangle rec, float roundnessLeft, float rou
         // will naturally come from OpenGL interpolation.
         //
 
-        // [2] Upper Rectangle
+        // [2] Upper RLRectangle
         rlColor4ub(left.r, left.g, left.b, left.a);
         rlTexCoord2f(shapeRect.x/texShapes.width, shapeRect.y/texShapes.height);
         rlVertex2f(point[0].x, point[0].y);
@@ -135,7 +135,7 @@ void DrawRectangleRoundedGradientH(Rectangle rec, float roundnessLeft, float rou
         rlTexCoord2f((shapeRect.x + shapeRect.width)/texShapes.width, shapeRect.y/texShapes.height);
         rlVertex2f(point[1].x, point[1].y);
 
-        // [4] Left Rectangle
+        // [4] Left RLRectangle
         rlColor4ub(right.r, right.g, right.b, right.a);
         rlTexCoord2f(shapeRect.x/texShapes.width, shapeRect.y/texShapes.height);
         rlVertex2f(point[2].x, point[2].y);
@@ -146,7 +146,7 @@ void DrawRectangleRoundedGradientH(Rectangle rec, float roundnessLeft, float rou
         rlTexCoord2f((shapeRect.x + shapeRect.width)/texShapes.width, shapeRect.y/texShapes.height);
         rlVertex2f(point[3].x, point[3].y);
 
-        // [6] Bottom Rectangle
+        // [6] Bottom RLRectangle
         rlColor4ub(left.r, left.g, left.b, left.a);
         rlTexCoord2f(shapeRect.x/texShapes.width, shapeRect.y/texShapes.height);
         rlVertex2f(point[11].x, point[11].y);
@@ -159,7 +159,7 @@ void DrawRectangleRoundedGradientH(Rectangle rec, float roundnessLeft, float rou
         rlTexCoord2f((shapeRect.x + shapeRect.width)/texShapes.width, shapeRect.y/texShapes.height);
         rlVertex2f(point[10].x, point[10].y);
 
-        // [8] left Rectangle
+        // [8] left RLRectangle
         rlColor4ub(left.r, left.g, left.b, left.a);
         rlTexCoord2f(shapeRect.x/texShapes.width, shapeRect.y/texShapes.height);
         rlVertex2f(point[7].x, point[7].y);
@@ -170,7 +170,7 @@ void DrawRectangleRoundedGradientH(Rectangle rec, float roundnessLeft, float rou
         rlTexCoord2f((shapeRect.x + shapeRect.width)/texShapes.width, shapeRect.y/texShapes.height);
         rlVertex2f(point[8].x, point[8].y);
 
-        // [9] Middle Rectangle
+        // [9] Middle RLRectangle
         rlColor4ub(left.r, left.g, left.b, left.a);
         rlTexCoord2f(shapeRect.x/texShapes.width, shapeRect.y/texShapes.height);
         rlVertex2f(point[8].x, point[8].y);
@@ -218,7 +218,7 @@ void DrawRectangleRoundedGradientH(Rectangle rec, float roundnessLeft, float rou
             }
         }
 
-        // [2] Upper Rectangle
+        // [2] Upper RLRectangle
         rlColor4ub(left.r, left.g, left.b, left.a);
         rlVertex2f(point[0].x, point[0].y);
         rlVertex2f(point[8].x, point[8].y);
@@ -230,7 +230,7 @@ void DrawRectangleRoundedGradientH(Rectangle rec, float roundnessLeft, float rou
         rlColor4ub(right.r, right.g, right.b, right.a);
         rlVertex2f(point[9].x, point[9].y);
 
-        // [4] Right Rectangle
+        // [4] Right RLRectangle
         rlColor4ub(right.r, right.g, right.b, right.a);
         rlVertex2f(point[9].x, point[9].y);
         rlVertex2f(point[10].x, point[10].y);
@@ -239,7 +239,7 @@ void DrawRectangleRoundedGradientH(Rectangle rec, float roundnessLeft, float rou
         rlVertex2f(point[9].x, point[9].y);
         rlVertex2f(point[3].x, point[3].y);
 
-        // [6] Bottom Rectangle
+        // [6] Bottom RLRectangle
         rlColor4ub(left.r, left.g, left.b, left.a);
         rlVertex2f(point[11].x, point[11].y);
         rlVertex2f(point[5].x, point[5].y);
@@ -251,7 +251,7 @@ void DrawRectangleRoundedGradientH(Rectangle rec, float roundnessLeft, float rou
         rlColor4ub(right.r, right.g, right.b, right.a);
         rlVertex2f(point[4].x, point[4].y);
 
-        // [8] Left Rectangle
+        // [8] Left RLRectangle
         rlColor4ub(left.r, left.g, left.b, left.a);
         rlVertex2f(point[7].x, point[7].y);
         rlVertex2f(point[6].x, point[6].y);
@@ -260,7 +260,7 @@ void DrawRectangleRoundedGradientH(Rectangle rec, float roundnessLeft, float rou
         rlVertex2f(point[7].x, point[7].y);
         rlVertex2f(point[11].x, point[11].y);
 
-        // [9] Middle Rectangle
+        // [9] Middle RLRectangle
         rlColor4ub(left.r, left.g, left.b, left.a);
         rlVertex2f(point[8].x, point[8].y);
         rlVertex2f(point[11].x, point[11].y);
@@ -291,7 +291,7 @@ int main(int argc, char *argv[])
         // Update rectangle bounds
         //----------------------------------------------------------------------------------
         float width = GetScreenWidth()/2.0f, height = GetScreenHeight()/6.0f;
-        Rectangle rec = {
+        RLRectangle rec = {
             GetScreenWidth() / 2.0f - width/2,
             GetScreenHeight() / 2.0f - (5)*(height/2),
             width, height
@@ -323,7 +323,7 @@ int main(int argc, char *argv[])
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
-    CloseWindow();        // Close window and OpenGL context
+    RlCloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
     return 0;
 }

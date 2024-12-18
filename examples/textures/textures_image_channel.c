@@ -30,7 +30,7 @@ int main(void)
 
     InitWindow(screenWidth, screenHeight, "raylib [textures] example - extract channel from image");
 
-    Image fudesumiImage = LoadImage("resources/fudesumi.png");
+    Image fudesumiImage = RlLoadImage("resources/fudesumi.png");
 
     Image imageAlpha = ImageFromChannel(fudesumiImage, 3);
     ImageAlphaMask(&imageAlpha, imageAlpha);
@@ -62,13 +62,13 @@ int main(void)
 
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
 
-    Rectangle fudesumiRec = {0, 0, fudesumiImage.width, fudesumiImage.height};
+    RLRectangle fudesumiRec = {0, 0, fudesumiImage.width, fudesumiImage.height};
 
-    Rectangle fudesumiPos = {50, 10, fudesumiImage.width*0.8f, fudesumiImage.height*0.8f};
-    Rectangle redPos = { 410, 10, fudesumiPos.width / 2, fudesumiPos.height / 2 };
-    Rectangle greenPos = { 600, 10, fudesumiPos.width / 2, fudesumiPos.height / 2 };
-    Rectangle bluePos = { 410, 230, fudesumiPos.width / 2, fudesumiPos.height / 2 };
-    Rectangle alphaPos = { 600, 230, fudesumiPos.width / 2, fudesumiPos.height / 2 };
+    RLRectangle fudesumiPos = {50, 10, fudesumiImage.width*0.8f, fudesumiImage.height*0.8f};
+    RLRectangle redPos = { 410, 10, fudesumiPos.width / 2, fudesumiPos.height / 2 };
+    RLRectangle greenPos = { 600, 10, fudesumiPos.width / 2, fudesumiPos.height / 2 };
+    RLRectangle bluePos = { 410, 230, fudesumiPos.width / 2, fudesumiPos.height / 2 };
+    RLRectangle alphaPos = { 600, 230, fudesumiPos.width / 2, fudesumiPos.height / 2 };
 
     //--------------------------------------------------------------------------------------
 
@@ -99,7 +99,7 @@ int main(void)
     UnloadTexture(textureGreen);
     UnloadTexture(textureBlue);
     UnloadTexture(textureAlpha);
-    CloseWindow();        // Close window and OpenGL context
+    RlCloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
     return 0;

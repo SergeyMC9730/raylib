@@ -123,16 +123,12 @@ int main ()
             // Draw mouse reference
             //Vector2 mousePos = GetWorldToScreen2D(GetMousePosition(), camera)
             DrawCircleV(GetMousePosition(), 4, DARKGRAY);
-            DrawTextEx(GetFontDefault(), TextFormat("[%i, %i]", GetMouseX(), GetMouseY()), 
+            RlDrawTextEx(GetFontDefault(), TextFormat("[%i, %i]", GetMouseX(), GetMouseY()), 
                 Vector2Add(GetMousePosition(), (Vector2){ -44, -24 }), 20, 2, BLACK);
 
-<<<<<<< HEAD
-            RlDrawText("Mouse right button drag to move, mouse wheel to zoom", 10, 10, 20, WHITE);
-=======
-            DrawText("[1][2] Select mouse zoom mode (Wheel or Move)", 20, 20, 20, DARKGRAY);
-            if (zoomMode == 0) DrawText("Mouse left button drag to move, mouse wheel to zoom", 20, 50, 20, DARKGRAY);
-            else DrawText("Mouse left button drag to move, mouse press and move to zoom", 20, 50, 20, DARKGRAY);
->>>>>>> upstream/master
+            RlDrawText("[1][2] Select mouse zoom mode (Wheel or Move)", 20, 20, 20, DARKGRAY);
+            if (zoomMode == 0) RlDrawText("Mouse left button drag to move, mouse wheel to zoom", 20, 50, 20, DARKGRAY);
+            else RlDrawText("Mouse left button drag to move, mouse press and move to zoom", 20, 50, 20, DARKGRAY);
         
         EndDrawing();
         //----------------------------------------------------------------------------------

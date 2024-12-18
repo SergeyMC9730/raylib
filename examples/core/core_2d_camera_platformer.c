@@ -133,11 +133,7 @@ int main(void)
 
                 for (int i = 0; i < envItemsLength; i++) DrawRectangleRec(envItems[i].rect, envItems[i].color);
 
-<<<<<<< HEAD
-                RLRectangle playerRect = { player.position.x - 20, player.position.y - 40, 40, 40 };
-=======
-                Rectangle playerRect = { player.position.x - 20, player.position.y - 40, 40.0f, 40.0f };
->>>>>>> upstream/master
+                RLRectangle playerRect = { player.position.x - 20, player.position.y - 40, 40.0f, 40.0f };
                 DrawRectangleRec(playerRect, RED);
                 
                 DrawCircleV(player.position, 5.0f, GOLD);

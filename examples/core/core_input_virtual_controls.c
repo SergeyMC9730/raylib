@@ -153,12 +153,12 @@ int main(void)
             {
                 DrawCircleV(buttonPositions[i], buttonRadius, (i == pressedButton)? DARKGRAY : BLACK);
 
-                DrawText(buttonLabels[i],
+                RlDrawText(buttonLabels[i],
                     (int)buttonPositions[i].x - 7, (int)buttonPositions[i].y - 8,
                     20, buttonLabelColors[i]);
             }
 
-            DrawText("move the player with D-Pad buttons", 10, 10, 20, DARKGRAY);
+            RlDrawText("move the player with D-Pad buttons", 10, 10, 20, DARKGRAY);
 
         EndDrawing();
         //--------------------------------------------------------------------------
@@ -166,7 +166,7 @@ int main(void)
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
-    CloseWindow();        // Close window and OpenGL context
+    RlCloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
     return 0;

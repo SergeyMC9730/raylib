@@ -281,11 +281,7 @@ int main(void)
                         .id = gBuffer.positionTexture,
                         .width = screenWidth,
                         .height = screenHeight,
-<<<<<<< HEAD
-                    }, (RLRectangle) { 0, 0, screenWidth, -screenHeight }, Vector2Zero(), RAYWHITE);
-=======
-                    }, (Rectangle) { 0, 0, (float)screenWidth, (float)-screenHeight }, Vector2Zero(), RAYWHITE);
->>>>>>> upstream/master
+                    }, (RLRectangle) { 0, 0, (float)screenWidth, (float)-screenHeight }, Vector2Zero(), RAYWHITE);
                     
                     RlDrawText("POSITION TEXTURE", 10, screenHeight - 30, 20, DARKGREEN);
                 } break;
@@ -295,11 +291,7 @@ int main(void)
                         .id = gBuffer.normalTexture,
                         .width = screenWidth,
                         .height = screenHeight,
-<<<<<<< HEAD
-                    }, (RLRectangle) { 0, 0, screenWidth, -screenHeight }, Vector2Zero(), RAYWHITE);
-=======
-                    }, (Rectangle) { 0, 0, (float)screenWidth, (float)-screenHeight }, Vector2Zero(), RAYWHITE);
->>>>>>> upstream/master
+                    }, (RLRectangle) { 0, 0, (float)screenWidth, (float)-screenHeight }, Vector2Zero(), RAYWHITE);
                     
                     RlDrawText("NORMAL TEXTURE", 10, screenHeight - 30, 20, DARKGREEN);
                 } break;
@@ -309,11 +301,7 @@ int main(void)
                         .id = gBuffer.albedoSpecTexture,
                         .width = screenWidth,
                         .height = screenHeight,
-<<<<<<< HEAD
-                    }, (RLRectangle) { 0, 0, screenWidth, -screenHeight }, Vector2Zero(), RAYWHITE);
-=======
-                    }, (Rectangle) { 0, 0, (float)screenWidth, (float)-screenHeight }, Vector2Zero(), RAYWHITE);
->>>>>>> upstream/master
+                    }, (RLRectangle) { 0, 0, (float)screenWidth, (float)-screenHeight }, Vector2Zero(), RAYWHITE);
                     
                     RlDrawText("ALBEDO TEXTURE", 10, screenHeight - 30, 20, DARKGREEN);
                 } break;
