@@ -23,13 +23,13 @@
 *           Custom flag for rcore on target platform -not used-
 *
 *   DEPENDENCIES:
-*       - SDL 2 or SLD 3 (main library): Windowing and inputs management
+*       - SDL 2 or SDL 3 (main library): Windowing and inputs management
 *       - gestures: Gestures system for touch-ready devices (or simulated from mouse inputs)
 *
 *
 *   LICENSE: zlib/libpng
 *
-*   Copyright (c) 2013-2024 Ramon Santamaria (@raysan5) and contributors
+*   Copyright (c) 2013-2025 Ramon Santamaria (@raysan5) and contributors
 *
 *   This software is provided "as-is", without any express or implied warranty. In no event
 *   will the authors be held liable for any damages arising from the use of this software.
@@ -82,6 +82,7 @@ typedef struct {
     SDL_GLContext glContext;
 
     SDL_GameController *gamepad[MAX_GAMEPADS];
+    SDL_JoystickID gamepadId[MAX_GAMEPADS]; // Joystick instance ids
     SDL_Cursor *cursor;
     bool cursorRelative;
 } PlatformData;
@@ -423,6 +424,8 @@ void ClosePlatform(void);                                    // Close platform
 
 static KeyboardKey ConvertScancodeToKey(SDL_Scancode sdlScancode);  // Help convert SDL scancodes to raylib key
 
+static int GetCodepointNextSDL(const char *text, int *codepointSize); // Get next codepoint in a byte sequence and bytes processed
+
 //----------------------------------------------------------------------------------
 // Module Functions Declaration
 //----------------------------------------------------------------------------------
@@ -507,7 +510,7 @@ void MinimizeWindow(void)
     if ((CORE.Window.flags & FLAG_WINDOW_MINIMIZED) == 0) CORE.Window.flags |= FLAG_WINDOW_MINIMIZED;
 }
 
-// Set window state: not minimized/maximized
+// Restore window from being minimized/maximized
 void RestoreWindow(void)
 {
     SDL_RestoreWindow(platform.window);
@@ -517,6 +520,8 @@ void RestoreWindow(void)
 // Set window configuration state using flags
 void SetWindowState(unsigned int flags)
 {
+    if (!CORE.Window.ready) TRACELOG(LOG_WARNING, "WINDOW: SetWindowState does nothing before window initialization, Use \"SetConfigFlags\" instead");
+
     CORE.Window.flags |= flags;
 
     if (flags & FLAG_VSYNC_HINT)
@@ -571,7 +576,7 @@ void SetWindowState(unsigned int flags)
     }
     if (flags & FLAG_WINDOW_ALWAYS_RUN)
     {
-        TRACELOG(LOG_WARNING, "SetWindowState() - FLAG_WINDOW_ALWAYS_RUN is not supported on PLATFORM_DESKTOP_SDL");
+        CORE.Window.flags |= FLAG_WINDOW_ALWAYS_RUN;
     }
     if (flags & FLAG_WINDOW_TRANSPARENT)
     {
@@ -658,7 +663,7 @@ void ClearWindowState(unsigned int flags)
     }
     if (flags & FLAG_WINDOW_ALWAYS_RUN)
     {
-        TRACELOG(LOG_WARNING, "ClearWindowState() - FLAG_WINDOW_ALWAYS_RUN is not supported on PLATFORM_DESKTOP_SDL");
+        CORE.Window.flags &= ~FLAG_WINDOW_ALWAYS_RUN;
     }
     if (flags & FLAG_WINDOW_TRANSPARENT)
     {
@@ -701,70 +706,84 @@ void SetWindowIcon(Image image)
     switch (image.format)
     {
         case PIXELFORMAT_UNCOMPRESSED_GRAYSCALE:
+        {
             rmask = 0xFF, gmask = 0;
             bmask = 0, amask = 0;
             depth = 8, pitch = image.width;
-            break;
+        } break;
         case PIXELFORMAT_UNCOMPRESSED_GRAY_ALPHA:
+        {
             rmask = 0xFF, gmask = 0xFF00;
             bmask = 0, amask = 0;
             depth = 16, pitch = image.width*2;
-            break;
+        } break;
         case PIXELFORMAT_UNCOMPRESSED_R5G6B5:
+        {
             rmask = 0xF800, gmask = 0x07E0;
             bmask = 0x001F, amask = 0;
             depth = 16, pitch = image.width*2;
-            break;
-        case PIXELFORMAT_UNCOMPRESSED_R8G8B8: // Uses BGR for 24-bit
-            rmask = 0x0000FF, gmask = 0x00FF00;
-            bmask = 0xFF0000, amask = 0;
+        } break;
+        case PIXELFORMAT_UNCOMPRESSED_R8G8B8:
+        {
+            // WARNING: SDL2 could be using BGR but SDL3 RGB
+            rmask = 0xFF0000, gmask = 0x00FF00;
+            bmask = 0x0000FF, amask = 0;
             depth = 24, pitch = image.width*3;
-            break;
+        } break;
         case PIXELFORMAT_UNCOMPRESSED_R5G5B5A1:
+        {
             rmask = 0xF800, gmask = 0x07C0;
             bmask = 0x003E, amask = 0x0001;
             depth = 16, pitch = image.width*2;
-            break;
+        } break;
         case PIXELFORMAT_UNCOMPRESSED_R4G4B4A4:
+        {
             rmask = 0xF000, gmask = 0x0F00;
             bmask = 0x00F0, amask = 0x000F;
             depth = 16, pitch = image.width*2;
-            break;
+        } break;
         case PIXELFORMAT_UNCOMPRESSED_R8G8B8A8:
+        {
             rmask = 0xFF000000, gmask = 0x00FF0000;
             bmask = 0x0000FF00, amask = 0x000000FF;
             depth = 32, pitch = image.width*4;
-            break;
+        } break;
         case PIXELFORMAT_UNCOMPRESSED_R32:
+        {
             rmask = 0xFFFFFFFF, gmask = 0;
             bmask = 0, amask = 0;
             depth = 32, pitch = image.width*4;
-            break;
+        } break;
         case PIXELFORMAT_UNCOMPRESSED_R32G32B32:
+        {
             rmask = 0xFFFFFFFF, gmask = 0xFFFFFFFF;
             bmask = 0xFFFFFFFF, amask = 0;
             depth = 96, pitch = image.width*12;
-            break;
+        } break;
         case PIXELFORMAT_UNCOMPRESSED_R32G32B32A32:
+        {
             rmask = 0xFFFFFFFF, gmask = 0xFFFFFFFF;
             bmask = 0xFFFFFFFF, amask = 0xFFFFFFFF;
             depth = 128, pitch = image.width*16;
-            break;
+        } break;
         case PIXELFORMAT_UNCOMPRESSED_R16:
+        {
             rmask = 0xFFFF, gmask = 0;
             bmask = 0, amask = 0;
             depth = 16, pitch = image.width*2;
-            break;
+        } break;
         case PIXELFORMAT_UNCOMPRESSED_R16G16B16:
+        {
             rmask = 0xFFFF, gmask = 0xFFFF;
             bmask = 0xFFFF, amask = 0;
             depth = 48, pitch = image.width*6;
-            break;
+        } break;
         case PIXELFORMAT_UNCOMPRESSED_R16G16B16A16:
+        {
             rmask = 0xFFFF, gmask = 0xFFFF;
             bmask = 0xFFFF, amask = 0xFFFF;
             depth = 64, pitch = image.width*8;
-            break;
+        } break;
         default: return; // Compressed formats are not supported
     }
 
@@ -913,7 +932,7 @@ int GetMonitorCount(void)
     return monitorCount;
 }
 
-// Get number of monitors
+// Get current monitor where window is placed
 int GetCurrentMonitor(void)
 {
     int currentMonitor = 0;
@@ -1348,7 +1367,7 @@ void PollInputEvents(void)
     for (int i = 0; i < MAX_TOUCH_POINTS; i++) CORE.Input.Touch.previousTouchState[i] = CORE.Input.Touch.currentTouchState[i];
 
     // Map touch position to mouse position for convenience
-    CORE.Input.Touch.position[0] = CORE.Input.Mouse.currentPosition;
+    if (CORE.Input.Touch.pointCount == 0) CORE.Input.Touch.position[0] = CORE.Input.Mouse.currentPosition;
 
     int touchAction = -1;       // 0-TOUCH_ACTION_UP, 1-TOUCH_ACTION_DOWN, 2-TOUCH_ACTION_MOVE
     bool realTouch = false;     // Flag to differentiate real touch gestures from mouse ones
@@ -1377,6 +1396,12 @@ void PollInputEvents(void)
     */
 
     CORE.Window.resizedLastFrame = false;
+
+    if ((CORE.Window.eventWaiting) || (((CORE.Window.flags & FLAG_WINDOW_MINIMIZED) > 0) && ((CORE.Window.flags & FLAG_WINDOW_ALWAYS_RUN) == 0)))
+    {
+        SDL_WaitEvent(NULL);
+        CORE.Time.previous = GetTime();
+    }
 
     SDL_Event event = { 0 };
     while (SDL_PollEvent(&event) != 0)
@@ -1444,8 +1469,17 @@ void PollInputEvents(void)
                         const int width = event.window.data1;
                         const int height = event.window.data2;
                         SetupViewport(width, height);
-                        CORE.Window.screen.width = width;
-                        CORE.Window.screen.height = height;
+                        // if we are doing automatic DPI scaling, then the "screen" size is divided by the window scale
+                        if (IsWindowState(FLAG_WINDOW_HIGHDPI))
+                        {
+                            CORE.Window.screen.width = (int)(width / GetWindowScaleDPI().x);
+                            CORE.Window.screen.height = (int)(height / GetWindowScaleDPI().y);
+                        }
+                        else
+                        {
+                            CORE.Window.screen.width = width;
+                            CORE.Window.screen.height = height;
+                        }
                         CORE.Window.currentFbo.width = width;
                         CORE.Window.currentFbo.height = height;
                         CORE.Window.resizedLastFrame = true;
@@ -1569,13 +1603,18 @@ void PollInputEvents(void)
             {
                 // NOTE: event.text.text data comes an UTF-8 text sequence but we register codepoints (int)
 
-                int codepointSize = 0;
-
                 // Check if there is space available in the queue
                 if (CORE.Input.Keyboard.charPressedQueueCount < MAX_CHAR_PRESSED_QUEUE)
                 {
                     // Add character (codepoint) to the queue
-                    CORE.Input.Keyboard.charPressedQueue[CORE.Input.Keyboard.charPressedQueueCount] = GetCodepointNext(event.text.text, &codepointSize);
+                    #if defined(PLATFORM_DESKTOP_SDL3)
+                    unsigned int textLen = strlen(event.text.text);
+                    unsigned int codepoint = (unsigned int)SDL_StepUTF8(&event.text.text, textLen);
+                    #else
+                    int codepointSize = 0;
+                    int codepoint = GetCodepointNextSDL(event.text.text, &codepointSize);
+                    #endif
+                    CORE.Input.Keyboard.charPressedQueue[CORE.Input.Keyboard.charPressedQueueCount] = codepoint;
                     CORE.Input.Keyboard.charPressedQueueCount++;
                 }
             } break;
@@ -1652,11 +1691,12 @@ void PollInputEvents(void)
             // Check gamepad events
             case SDL_JOYDEVICEADDED:
             {
-                int jid = event.jdevice.which;
+                int jid = event.jdevice.which; // Joystick device index
 
-                if (!CORE.Input.Gamepad.ready[jid] && (jid < MAX_GAMEPADS))
+                if (CORE.Input.Gamepad.ready[jid] && (jid < MAX_GAMEPADS))
                 {
                     platform.gamepad[jid] = SDL_GameControllerOpen(jid);
+                    platform.gamepadId[jid] = SDL_JoystickInstanceID(SDL_GameControllerGetJoystick(platform.gamepad[jid]));
 
                     if (platform.gamepad[jid])
                     {
@@ -1664,8 +1704,8 @@ void PollInputEvents(void)
                         CORE.Input.Gamepad.axisCount[jid] = SDL_JoystickNumAxes(SDL_GameControllerGetJoystick(platform.gamepad[jid]));
                         CORE.Input.Gamepad.axisState[jid][GAMEPAD_AXIS_LEFT_TRIGGER] = -1.0f;
                         CORE.Input.Gamepad.axisState[jid][GAMEPAD_AXIS_RIGHT_TRIGGER] = -1.0f;
-                        strncpy(CORE.Input.Gamepad.name[jid], SDL_GameControllerNameForIndex(jid), 63);
-                        CORE.Input.Gamepad.name[jid][63] = '\0';
+                        memset(CORE.Input.Gamepad.name[jid], 0, MAX_GAMEPAD_NAME_LENGTH);
+                        strncpy(CORE.Input.Gamepad.name[jid], SDL_GameControllerNameForIndex(jid), MAX_GAMEPAD_NAME_LENGTH - 1);
                     }
                     else
                     {
@@ -1675,14 +1715,18 @@ void PollInputEvents(void)
             } break;
             case SDL_JOYDEVICEREMOVED:
             {
-                int jid = event.jdevice.which;
+                int jid = event.jdevice.which; // Joystick instance id
 
-                if (jid == SDL_JoystickInstanceID(SDL_GameControllerGetJoystick(platform.gamepad[jid])))
+                for (int i = 0; i < MAX_GAMEPADS; i++)
                 {
-                    SDL_GameControllerClose(platform.gamepad[jid]);
-                    platform.gamepad[jid] = SDL_GameControllerOpen(0);
-                    CORE.Input.Gamepad.ready[jid] = false;
-                    memset(CORE.Input.Gamepad.name[jid], 0, 64);
+                    if (platform.gamepadId[i] == jid)
+                    {
+                        SDL_GameControllerClose(platform.gamepad[i]);
+                        CORE.Input.Gamepad.ready[i] = false;
+                        memset(CORE.Input.Gamepad.name[i], 0, MAX_GAMEPAD_NAME_LENGTH);
+                        platform.gamepadId[i] = -1;
+                        break;
+                    }
                 }
             } break;
             case SDL_CONTROLLERBUTTONDOWN:
@@ -1715,8 +1759,15 @@ void PollInputEvents(void)
 
                 if (button >= 0)
                 {
-                    CORE.Input.Gamepad.currentButtonState[event.jbutton.which][button] = 1;
-                    CORE.Input.Gamepad.lastButtonPressed = button;
+                    for (int i = 0; i < MAX_GAMEPADS; i++)
+                    {
+                        if (platform.gamepadId[i] == event.jbutton.which)
+                        {
+                            CORE.Input.Gamepad.currentButtonState[i][button] = 1;
+                            CORE.Input.Gamepad.lastButtonPressed = button;
+                            break;
+                        }
+                    }
                 }
             } break;
             case SDL_CONTROLLERBUTTONUP:
@@ -1749,8 +1800,15 @@ void PollInputEvents(void)
 
                 if (button >= 0)
                 {
-                    CORE.Input.Gamepad.currentButtonState[event.jbutton.which][button] = 0;
-                    if (CORE.Input.Gamepad.lastButtonPressed == button) CORE.Input.Gamepad.lastButtonPressed = 0;
+                    for (int i = 0; i < MAX_GAMEPADS; i++)
+                    {
+                        if (platform.gamepadId[i] == event.jbutton.which)
+                        {
+                            CORE.Input.Gamepad.currentButtonState[i][button] = 0;
+                            if (CORE.Input.Gamepad.lastButtonPressed == button) CORE.Input.Gamepad.lastButtonPressed = 0;
+                            break;
+                        }
+                    }
                 }
             } break;
             case SDL_CONTROLLERAXISMOTION:
@@ -1770,18 +1828,25 @@ void PollInputEvents(void)
 
                 if (axis >= 0)
                 {
-                    // SDL axis value range is -32768 to 32767, we normalize it to RayLib's -1.0 to 1.0f range
-                    float value = event.jaxis.value/(float)32767;
-                    CORE.Input.Gamepad.axisState[event.jaxis.which][axis] = value;
-
-                    // Register button state for triggers in addition to their axes
-                    if ((axis == GAMEPAD_AXIS_LEFT_TRIGGER) || (axis == GAMEPAD_AXIS_RIGHT_TRIGGER))
+                    for (int i = 0; i < MAX_GAMEPADS; i++)
                     {
-                        int button = (axis == GAMEPAD_AXIS_LEFT_TRIGGER)? GAMEPAD_BUTTON_LEFT_TRIGGER_2 : GAMEPAD_BUTTON_RIGHT_TRIGGER_2;
-                        int pressed = (value > 0.1f);
-                        CORE.Input.Gamepad.currentButtonState[event.jaxis.which][button] = pressed;
-                        if (pressed) CORE.Input.Gamepad.lastButtonPressed = button;
-                        else if (CORE.Input.Gamepad.lastButtonPressed == button) CORE.Input.Gamepad.lastButtonPressed = 0;
+                        if (platform.gamepadId[i] == event.jaxis.which)
+                        {
+                            // SDL axis value range is -32768 to 32767, we normalize it to raylib's -1.0 to 1.0f range
+                            float value = event.jaxis.value/(float)32767;
+                            CORE.Input.Gamepad.axisState[i][axis] = value;
+
+                            // Register button state for triggers in addition to their axes
+                            if ((axis == GAMEPAD_AXIS_LEFT_TRIGGER) || (axis == GAMEPAD_AXIS_RIGHT_TRIGGER))
+                            {
+                                int button = (axis == GAMEPAD_AXIS_LEFT_TRIGGER)? GAMEPAD_BUTTON_LEFT_TRIGGER_2 : GAMEPAD_BUTTON_RIGHT_TRIGGER_2;
+                                int pressed = (value > 0.1f);
+                                CORE.Input.Gamepad.currentButtonState[i][button] = pressed;
+                                if (pressed) CORE.Input.Gamepad.lastButtonPressed = button;
+                                else if (CORE.Input.Gamepad.lastButtonPressed == button) CORE.Input.Gamepad.lastButtonPressed = 0;
+                            }
+                            break;
+                        }
                     }
                 }
             } break;
@@ -1961,9 +2026,15 @@ int InitPlatform(void)
     // Initialize input events system
     //----------------------------------------------------------------------------
     // Initialize gamepads
+    for (int i = 0; i < MAX_GAMEPADS; i++)
+    {
+        platform.gamepadId[i] = -1; // Set all gamepad initial instance ids as invalid to not conflict with instance id zero
+    }
+
     for (int i = 0; (i < SDL_NumJoysticks()) && (i < MAX_GAMEPADS); i++)
     {
         platform.gamepad[i] = SDL_GameControllerOpen(i);
+        platform.gamepadId[i] = SDL_JoystickInstanceID(SDL_GameControllerGetJoystick(platform.gamepad[i]));
 
         if (platform.gamepad[i])
         {
@@ -1971,8 +2042,8 @@ int InitPlatform(void)
             CORE.Input.Gamepad.axisCount[i] = SDL_JoystickNumAxes(SDL_GameControllerGetJoystick(platform.gamepad[i]));
             CORE.Input.Gamepad.axisState[i][GAMEPAD_AXIS_LEFT_TRIGGER] = -1.0f;
             CORE.Input.Gamepad.axisState[i][GAMEPAD_AXIS_RIGHT_TRIGGER] = -1.0f;
-            strncpy(CORE.Input.Gamepad.name[i], SDL_GameControllerNameForIndex(i), 63);
-            CORE.Input.Gamepad.name[i][63] = '\0';
+            strncpy(CORE.Input.Gamepad.name[i], SDL_GameControllerNameForIndex(i), MAX_GAMEPAD_NAME_LENGTH - 1);
+            CORE.Input.Gamepad.name[i][MAX_GAMEPAD_NAME_LENGTH - 1] = '\0';
         }
         else TRACELOG(LOG_WARNING, "PLATFORM: Unable to open game controller [ERROR: %s]", SDL_GetError());
     }
@@ -2029,4 +2100,42 @@ static KeyboardKey ConvertScancodeToKey(SDL_Scancode sdlScancode)
 
     return KEY_NULL; // No equivalent key in Raylib
 }
-// EOF
+
+// Get next codepoint in a byte sequence and bytes processed
+static int GetCodepointNextSDL(const char *text, int *codepointSize)
+{
+    const char *ptr = text;
+    int codepoint = 0x3f;       // Codepoint (defaults to '?')
+    *codepointSize = 1;
+
+    // Get current codepoint and bytes processed
+    if (0xf0 == (0xf8 & ptr[0]))
+    {
+        // 4 byte UTF-8 codepoint
+        if (((ptr[1] & 0xC0) ^ 0x80) || ((ptr[2] & 0xC0) ^ 0x80) || ((ptr[3] & 0xC0) ^ 0x80)) { return codepoint; } // 10xxxxxx checks
+        codepoint = ((0x07 & ptr[0]) << 18) | ((0x3f & ptr[1]) << 12) | ((0x3f & ptr[2]) << 6) | (0x3f & ptr[3]);
+        *codepointSize = 4;
+    }
+    else if (0xe0 == (0xf0 & ptr[0]))
+    {
+        // 3 byte UTF-8 codepoint */
+        if (((ptr[1] & 0xC0) ^ 0x80) || ((ptr[2] & 0xC0) ^ 0x80)) { return codepoint; } // 10xxxxxx checks
+        codepoint = ((0x0f & ptr[0]) << 12) | ((0x3f & ptr[1]) << 6) | (0x3f & ptr[2]);
+        *codepointSize = 3;
+    }
+    else if (0xc0 == (0xe0 & ptr[0]))
+    {
+        // 2 byte UTF-8 codepoint
+        if ((ptr[1] & 0xC0) ^ 0x80) { return codepoint; } // 10xxxxxx checks
+        codepoint = ((0x1f & ptr[0]) << 6) | (0x3f & ptr[1]);
+        *codepointSize = 2;
+    }
+    else if (0x00 == (0x80 & ptr[0]))
+    {
+        // 1 byte UTF-8 codepoint
+        codepoint = ptr[0];
+        *codepointSize = 1;
+    }
+
+    return codepoint;
+}

@@ -30,7 +30,7 @@
 #     > PLATFORM_ANDROID:
 #         - Android (ARM, ARM64)
 #
-#   Copyright (c) 2013-2024 Ramon Santamaria (@raysan5)
+#   Copyright (c) 2013-2025 Ramon Santamaria (@raysan5)
 #
 #   This software is provided "as-is", without any express or implied warranty. In no event
 #   will the authors be held liable for any damages arising from the use of this software.
@@ -95,7 +95,6 @@ USE_EXTERNAL_GLFW     ?= FALSE
 SDL_INCLUDE_PATH      ?= $(RAYLIB_SRC_PATH)/external/SDL2/include
 SDL_LIBRARY_PATH      ?= $(RAYLIB_SRC_PATH)/external/SDL2/lib
 SDL_LIBRARIES         ?= -lSDL2 -lSDL2main
-
 
 # Use Wayland display server protocol on Linux desktop (by default it uses X11 windowing system)
 # NOTE: This variable is only used for PLATFORM_OS: LINUX
@@ -233,10 +232,7 @@ CFLAGS = -Wall -std=c99 -D_DEFAULT_SOURCE -Wno-missing-braces -Wunused-result
 
 ifeq ($(BUILD_MODE),DEBUG)
     CFLAGS += -g -D_DEBUG
-    ifeq ($(TARGET_PLATFORM),$(filter $(TARGET_PLATFORM),PLATFORM_WEB PLATFORM_WEB_RGFW))
-        CFLAGS += -sASSERTIONS=1 --profiling
-    endif
-else  
+else
    ifeq ($(TARGET_PLATFORM),$(filter $(TARGET_PLATFORM),PLATFORM_WEB PLATFORM_WEB_RGFW))
         ifeq ($(BUILD_WEB_ASYNCIFY),TRUE)
             CFLAGS += -O3
@@ -330,26 +326,27 @@ endif
 ifeq ($(TARGET_PLATFORM),$(filter $(TARGET_PLATFORM),PLATFORM_WEB PLATFORM_WEB_RGFW))
     # -Os                        # size optimization
     # -O2                        # optimization level 2, if used, also set --memory-init-file 0
-    # -sUSE_GLFW=3              # Use glfw3 library (context/input management)
-    # -sALLOW_MEMORY_GROWTH=1   # to allow memory resizing -> WARNING: Audio buffers could FAIL!
-    # -sTOTAL_MEMORY=16777216   # to specify heap memory size (default = 16MB) (67108864 = 64MB)
-    # -sUSE_PTHREADS=1          # multithreading support
-    # -sWASM=0                  # disable Web Assembly, emitted by default
-    # -sASYNCIFY                # lets synchronous C/C++ code interact with asynchronous JS
-    # -sFORCE_FILESYSTEM=1      # force filesystem to load/save files data
-    # -sASSERTIONS=1            # enable runtime checks for common memory allocation errors (-O1 and above turn it off)
-    # -sGL_ENABLE_GET_PROC_ADDRESS # enable using the *glGetProcAddress() family of functions, required for extensions loading
+    # -sUSE_GLFW=3               # Use glfw3 library (context/input management)
+    # -sALLOW_MEMORY_GROWTH=1    # to allow memory resizing -> WARNING: Audio buffers could FAIL!
+    # -sTOTAL_MEMORY=16777216    # to specify heap memory size (default = 16MB) (67108864 = 64MB)
+    # -sUSE_PTHREADS=1           # multithreading support
+    # -sWASM=0                   # disable Web Assembly, emitted by default
+    # -sASYNCIFY                 # lets synchronous C/C++ code interact with asynchronous JS
+    # -sFORCE_FILESYSTEM=1       # force filesystem to load/save files data
+    # -sASSERTIONS=1             # enable runtime checks for common memory allocation errors (-O1 and above turn it off)
+    # -sMINIFY_HTML=0            # minify generated html from shell.html
     # --profiling                # include information for code profiling
     # --memory-init-file 0       # to avoid an external memory initialization code file (.mem)
     # --preload-file resources   # specify a resources folder for data compilation
     # --source-map-base          # allow debugging in browser with source map
+    # --shell-file shell.html    # define a custom shell .html and output extension
+    LDFLAGS += -sTOTAL_MEMORY=$(BUILD_WEB_HEAP_SIZE) -sFORCE_FILESYSTEM=1 -sMINIFY_HTML=0
 
+    # Using GLFW3 library (instead of RGFW)
     ifeq ($(TARGET_PLATFORM),PLATFORM_WEB)
         LDFLAGS += -sUSE_GLFW=3
     endif
 
-    LDFLAGS += -sTOTAL_MEMORY=$(BUILD_WEB_HEAP_SIZE) -sFORCE_FILESYSTEM=1
-  	 
 	# Build using asyncify
     ifeq ($(BUILD_WEB_ASYNCIFY),TRUE)
         LDFLAGS += -sASYNCIFY
@@ -479,7 +476,7 @@ ifeq ($(TARGET_PLATFORM),PLATFORM_DESKTOP_RGFW)
         # NOTE: Required packages: libegl1-mesa-dev
         LDFLAGS += -L../src
         LDLIBS = -lraylib -lm
-        LDLIBS += -framework Foundation -framework AppKit -framework OpenGL -framework CoreVideo
+        LDLIBS += -framework Foundation -framework AppKit -framework IOKit -framework OpenGL -framework CoreVideo
     endif
 endif
 ifeq ($(TARGET_PLATFORM),PLATFORM_DRM)
@@ -511,8 +508,8 @@ CORE = \
     core/core_custom_frame_control \
     core/core_custom_logging \
     core/core_drop_files \
+    core/core_high_dpi \
     core/core_input_gamepad \
-    core/core_input_gamepad_info \
     core/core_input_gestures \
     core/core_input_gestures_web \
     core/core_input_keys \
@@ -547,10 +544,11 @@ SHAPES = \
     shapes/shapes_lines_bezier \
     shapes/shapes_logo_raylib \
     shapes/shapes_logo_raylib_anim \
+    shapes/shapes_rectangle_advanced \
     shapes/shapes_rectangle_scaling \
     shapes/shapes_splines_drawing \
     shapes/shapes_top_down_lights \
-    shapes/shapes_rectangle_advanced
+    shapes/shapes_digital_clock
 
 TEXTURES = \
     textures/textures_background_scrolling \
@@ -603,6 +601,7 @@ MODELS = \
     models/models_draw_cube_texture \
     models/models_first_person_maze \
     models/models_geometric_shapes \
+    models/models_gpu_skinning \
     models/models_heightmap \
     models/models_loading \
     models/models_loading_gltf \
@@ -614,9 +613,9 @@ MODELS = \
     models/models_point_rendering \
     models/models_rlgl_solar_system \
     models/models_skybox \
+    models/models_tesseract_view \
     models/models_waving_cubes \
-    models/models_yaw_pitch_roll \
-    models/models_gpu_skinning
+    models/models_yaw_pitch_roll
 
 SHADERS = \
     shaders/shaders_basic_lighting \
@@ -635,6 +634,7 @@ SHADERS = \
     shaders/shaders_palette_switch \
     shaders/shaders_postprocessing \
     shaders/shaders_raymarching \
+    shaders/shaders_rounded_rectangle \
     shaders/shaders_shadowmap \
     shaders/shaders_shapes_textures \
     shaders/shaders_simple_mask \
@@ -643,6 +643,7 @@ SHADERS = \
     shaders/shaders_texture_outline \
     shaders/shaders_texture_tiling \
     shaders/shaders_texture_waves \
+    shaders/shaders_view_depth \
     shaders/shaders_write_depth \
     shaders/shaders_vertex_displacement
 
@@ -653,6 +654,7 @@ AUDIO = \
     audio/audio_raw_stream \
     audio/audio_sound_loading \
     audio/audio_sound_multi \
+    audio/audio_sound_positioning \
     audio/audio_stream_effects
 
 OTHERS = \
@@ -665,7 +667,6 @@ OTHERS = \
 ifeq ($(TARGET_PLATFORM), PLATFORM_DESKTOP_GFLW)
     OTHERS += others/rlgl_standalone
 endif
-
 
 CURRENT_MAKEFILE = $(lastword $(MAKEFILE_LIST))
 
