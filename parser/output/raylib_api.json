@@ -2300,7 +2300,7 @@
     },
     {
       "name": "GamepadAxis",
-      "description": "Gamepad axis",
+      "description": "Gamepad axes",
       "values": [
         {
           "name": "GAMEPAD_AXIS_LEFT_X",
@@ -3139,7 +3139,7 @@
           "name": "fileName"
         },
         {
-          "type": "char *",
+          "type": "const char *",
           "name": "text"
         }
       ]
@@ -3280,7 +3280,7 @@
     },
     {
       "name": "RestoreWindow",
-      "description": "Set window state: not minimized/maximized",
+      "description": "Restore window from being minimized/maximized",
       "returnType": "void"
     },
     {
@@ -3899,7 +3899,7 @@
     },
     {
       "name": "SetShaderValueTexture",
-      "description": "Set shader uniform value for texture (sampler2d)",
+      "description": "Set shader uniform value and bind the texture (sampler2d)",
       "returnType": "void",
       "params": [
         {
@@ -4409,7 +4409,7 @@
           "name": "fileName"
         },
         {
-          "type": "char *",
+          "type": "const char *",
           "name": "text"
         }
       ]
@@ -4684,7 +4684,7 @@
     },
     {
       "name": "EncodeDataBase64",
-      "description": "Encode data to Base64 string, memory must be MemFree()",
+      "description": "Encode data to Base64 string (includes NULL terminator), memory must be MemFree()",
       "returnType": "char *",
       "params": [
         {
@@ -4703,12 +4703,12 @@
     },
     {
       "name": "DecodeDataBase64",
-      "description": "Decode Base64 string data, memory must be MemFree()",
+      "description": "Decode Base64 string (expected NULL terminated), memory must be MemFree()",
       "returnType": "unsigned char *",
       "params": [
         {
-          "type": "const unsigned char *",
-          "name": "data"
+          "type": "const char *",
+          "name": "text"
         },
         {
           "type": "int *",
@@ -5017,7 +5017,7 @@
     },
     {
       "name": "GetGamepadAxisCount",
-      "description": "Get gamepad axis count for a gamepad",
+      "description": "Get axis count for a gamepad",
       "returnType": "int",
       "params": [
         {
@@ -5028,7 +5028,7 @@
     },
     {
       "name": "GetGamepadAxisMovement",
-      "description": "Get axis movement value for a gamepad axis",
+      "description": "Get movement value for a gamepad axis",
       "returnType": "float",
       "params": [
         {
@@ -5703,6 +5703,29 @@
       ]
     },
     {
+      "name": "DrawEllipseV",
+      "description": "Draw ellipse (Vector version)",
+      "returnType": "void",
+      "params": [
+        {
+          "type": "Vector2",
+          "name": "center"
+        },
+        {
+          "type": "float",
+          "name": "radiusH"
+        },
+        {
+          "type": "float",
+          "name": "radiusV"
+        },
+        {
+          "type": "Color",
+          "name": "color"
+        }
+      ]
+    },
+    {
       "name": "DrawEllipseLines",
       "description": "Draw ellipse outline",
       "returnType": "void",
@@ -5714,6 +5737,29 @@
         {
           "type": "int",
           "name": "centerY"
+        },
+        {
+          "type": "float",
+          "name": "radiusH"
+        },
+        {
+          "type": "float",
+          "name": "radiusV"
+        },
+        {
+          "type": "Color",
+          "name": "color"
+        }
+      ]
+    },
+    {
+      "name": "DrawEllipseLinesV",
+      "description": "Draw ellipse outline (Vector version)",
+      "returnType": "void",
+      "params": [
+        {
+          "type": "Vector2",
+          "name": "center"
         },
         {
           "type": "float",
@@ -5964,11 +6010,11 @@
         },
         {
           "type": "Color",
-          "name": "topRight"
+          "name": "bottomRight"
         },
         {
           "type": "Color",
-          "name": "bottomRight"
+          "name": "topRight"
         }
       ]
     },
@@ -8256,7 +8302,7 @@
           "name": "dst"
         },
         {
-          "type": "Vector2 *",
+          "type": "const Vector2 *",
           "name": "points"
         },
         {
@@ -8279,7 +8325,7 @@
           "name": "dst"
         },
         {
-          "type": "Vector2 *",
+          "type": "const Vector2 *",
           "name": "points"
         },
         {
@@ -8483,7 +8529,7 @@
     },
     {
       "name": "UpdateTexture",
-      "description": "Update GPU texture with new data",
+      "description": "Update GPU texture with new data (pixels should be able to fill texture)",
       "returnType": "void",
       "params": [
         {
@@ -8498,7 +8544,7 @@
     },
     {
       "name": "UpdateTextureRec",
-      "description": "Update GPU texture rectangle with new data",
+      "description": "Update GPU texture rectangle with new data (pixels and rec should fit in texture)",
       "returnType": "void",
       "params": [
         {
@@ -9675,10 +9721,10 @@
     {
       "name": "TextJoin",
       "description": "Join text strings with delimiter",
-      "returnType": "const char *",
+      "returnType": "char *",
       "params": [
         {
-          "type": "const char **",
+          "type": "char **",
           "name": "textList"
         },
         {
@@ -9694,7 +9740,7 @@
     {
       "name": "TextSplit",
       "description": "Split text into multiple strings",
-      "returnType": "const char **",
+      "returnType": "char **",
       "params": [
         {
           "type": "const char *",
@@ -9747,7 +9793,7 @@
     {
       "name": "TextToUpper",
       "description": "Get upper case version of provided string",
-      "returnType": "const char *",
+      "returnType": "char *",
       "params": [
         {
           "type": "const char *",
@@ -9758,7 +9804,7 @@
     {
       "name": "TextToLower",
       "description": "Get lower case version of provided string",
-      "returnType": "const char *",
+      "returnType": "char *",
       "params": [
         {
           "type": "const char *",
@@ -9769,7 +9815,7 @@
     {
       "name": "TextToPascal",
       "description": "Get Pascal case notation version of provided string",
-      "returnType": "const char *",
+      "returnType": "char *",
       "params": [
         {
           "type": "const char *",
@@ -9780,7 +9826,7 @@
     {
       "name": "TextToSnake",
       "description": "Get Snake case notation version of provided string",
-      "returnType": "const char *",
+      "returnType": "char *",
       "params": [
         {
           "type": "const char *",
@@ -9791,7 +9837,7 @@
     {
       "name": "TextToCamel",
       "description": "Get Camel case notation version of provided string",
-      "returnType": "const char *",
+      "returnType": "char *",
       "params": [
         {
           "type": "const char *",
@@ -11465,7 +11511,7 @@
     },
     {
       "name": "UpdateSound",
-      "description": "Update sound buffer with new data",
+      "description": "Update sound buffer with new data (data and frame count should fit in sound)",
       "returnType": "void",
       "params": [
         {
@@ -12119,7 +12165,7 @@
     },
     {
       "name": "AttachAudioStreamProcessor",
-      "description": "Attach audio stream processor to stream, receives the samples as 'float'",
+      "description": "Attach audio stream processor to stream, receives frames x 2 samples as 'float' (stereo)",
       "returnType": "void",
       "params": [
         {
@@ -12149,7 +12195,7 @@
     },
     {
       "name": "AttachAudioMixedProcessor",
-      "description": "Attach audio stream processor to the entire audio pipeline, receives the samples as 'float'",
+      "description": "Attach audio stream processor to the entire audio pipeline, receives frames x 2 samples as 'float' (stereo)",
       "returnType": "void",
       "params": [
         {

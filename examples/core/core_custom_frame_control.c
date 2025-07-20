@@ -2,6 +2,8 @@
 *
 *   raylib [core] example - custom frame control
 *
+*   Example complexity rating: [★★★★] 4/4
+*
 *   NOTE: WARNING: This is an example for advanced users willing to have full control over
 *   the frame processes. By default, EndDrawing() calls the following processes:
 *       1. Draw remaining batch data: rlDrawRenderBatchActive()
@@ -22,7 +24,7 @@
 *   Example licensed under an unmodified zlib/libpng license, which is an OSI-certified,
 *   BSD-like license that allows static linking with closed source software
 *
-*   Copyright (c) 2021-2024 Ramon Santamaria (@raysan5)
+*   Copyright (c) 2021-2025 Ramon Santamaria (@raysan5)
 *
 ********************************************************************************************/
 
@@ -59,7 +61,9 @@ int main(void)
     {
         // Update
         //----------------------------------------------------------------------------------
-        PollInputEvents();              // Poll input events (SUPPORT_CUSTOM_FRAME_CONTROL)
+        #ifndef PLATFORM_WEB            // NOTE: On non web platforms the PollInputEvents just works before the inputs checks
+            PollInputEvents();          // Poll input events (SUPPORT_CUSTOM_FRAME_CONTROL)
+        #endif
         
         if (IsKeyPressed(KEY_SPACE)) pause = !pause;
         
@@ -74,6 +78,10 @@ int main(void)
             if (position >= GetScreenWidth()) position = 0;
             timeCounter += deltaTime;   // We count time (seconds)
         }
+
+        #ifdef PLATFORM_WEB             // NOTE: On web platform for some reason the PollInputEvents only works after the inputs check, so just call it after check all your inputs (on web)
+            PollInputEvents();          // Poll input events (SUPPORT_CUSTOM_FRAME_CONTROL)
+        #endif
         //----------------------------------------------------------------------------------
 
         // Draw
@@ -93,7 +101,10 @@ int main(void)
             RlDrawText("PRESS SPACE to PAUSE MOVEMENT", 10, GetScreenHeight() - 60, 20, GRAY);
             RlDrawText("PRESS UP | DOWN to CHANGE TARGET FPS", 10, GetScreenHeight() - 30, 20, GRAY);
             RlDrawText(TextFormat("TARGET FPS: %i", targetFPS), GetScreenWidth() - 220, 10, 20, LIME);
-            RlDrawText(TextFormat("CURRENT FPS: %i", (int)(1.0f/deltaTime)), GetScreenWidth() - 220, 40, 20, GREEN);
+            if (deltaTime != 0)
+            {
+                RlDrawText(TextFormat("CURRENT FPS: %i", (int)(1.0f/deltaTime)), GetScreenWidth() - 220, 40, 20, GREEN);
+            }
 
         EndDrawing();
 
